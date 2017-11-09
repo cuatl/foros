@@ -1,5 +1,5 @@
 <?php
-   $master=$sql->Query("SELECT * FROM forotes");
+   $master=$sql->Query("SELECT * FROM forotes order by orden");
    while($ma = $master->fetch_object()) {
    ?>
    <div class="bg-dark text-white py-1 px-3">
@@ -14,7 +14,7 @@
    ?>
    <div class="card-deck">
       <?php
-         $rex=$sql->Query("SELECT * FROM foros WHERE master='".$ma->id."'");
+         $rex=$sql->Query("SELECT * FROM foros WHERE master='".$ma->id."' order by orden");
          while($foro = $rex->fetch_object()) {
             $res=$sql->Query("SELECT * FROM posts WHERE foro='".$foro->id."' AND padre=0 order by id desc limit 1");
             while($k = $res->fetch_object()) {

@@ -1,4 +1,5 @@
 <?php
+   // obtiene la definición de las tablas
    require_once(__DIR__."/../config.php");
    $q = sprintf("show tables FROM %s",$sqls->data);
    $res = $sql->Query($q);

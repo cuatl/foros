@@ -9,3 +9,4 @@
    //DB: grant all on foros.* TO "foros"@"localhost" identified by "LWE7XE?!p7SRrJgg";
    $sql = new MySQLi($sqls->host,$sqls->user,$sqls->pass,$sqls->data);
    $sql->Query("SET names 'utf8mb4'");
+   function __($t) { return addslashes(strip_tags($t)); }

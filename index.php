@@ -50,7 +50,13 @@
 
 
          <?php
-            include_once("portada.php");
+            if(isset($_GET['entrar'])) {
+               include_once("entrar.php");
+            } elseif(isset($_GET['foro'])) {
+               include_once("foros.php");
+            } else {
+               include_once("portada.php");
+            }
          ?>
 
 
