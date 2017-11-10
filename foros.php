@@ -37,7 +37,7 @@
                            $last=$sql->Query("SELECT fecha FROM posts WHERE padre='".$k->id."' order by id desc limit 1");
                            if($last->num_rows>0) { $last = $last->fetch_object(); $last = $last->fecha; } 
                            else { $last = $k->fecha; }
-                           $read=sprintf("SELECT * FROM postslog WHERE postid='%d' and me='%d'",$k->id,$_SESSION['me']);
+                           $read=sprintf("SELECT * FROM postslog WHERE postid='%d' and me='%d'",$k->id,$_SESSION['foro']);
                            $read=$sql->Query($read);
                            if($read->num_rows<1) { echo ' <span class="badge badge-warning">sin leer</span>'; } 
                            else {
@@ -48,7 +48,7 @@
                         ?>
                      </td>
                      <td><a href="<?php echo $sitio;?>?u=<?php echo $k->lid;?>"><?php echo (empty($k->alias)?$k->nombre:$k->alias); ?></a></td>
-                     <td><?php $d=lafecha($k->fecha); echo $d->fechas;?></td>
+                     <td><?php $d=$utils->fecha($k->fecha); echo $d->fechas;?></td>
                   </tr>
                   <?php
                   }

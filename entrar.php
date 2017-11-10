@@ -1,4 +1,6 @@
 <?php
+   /* login con Facebook / Google */
+   // identificado?
    if(isset($_SESSION['foro'])) {
       $redir = (!empty($_SESSION['redir'])) ? $_SESSION['redir'] : $sitio;
       echo $redir;
@@ -31,34 +33,25 @@
    </div>
 </div>
 <script>
-//Facebook API
-(function(d, s, id){
+   //Facebook API
+   (function(d, s, id){
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
       js = d.createElement(s); js.id = id;
       js.src = "https://connect.facebook.net/es_LA/sdk.js";
       fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
-   //
    window.fbAsyncInit = function() {
       FB.init({
          appId            : '<?php echo FACEBOOK;?>', //cambiar al identificador de tu aplicación
-         autoLogAppEvents : false,
-         status           : false,
-         xfbml            : false,
-         version          : 'v2.11'
+         autoLogAppEvents : false, status : false, xfbml : false, version : 'v2.11'
       });
-      //FB.AppEvents.logPageView();
    }
-   //
    var datame = {};
-   //
-
    //https://developers.facebook.com/docs/facebook-login/permissions
    var entrarFB = function() {
       $("#status").html("Accediendo con Facebook...");
       FB.login(function(response) {
-         // handle the response
          if (response.authResponse) {
             var tok = response.authResponse.accessToken;
             FB.api('/me?fields=id,email,name,first_name,last_name,age_range,link,gender,verified', function(response) {
@@ -76,10 +69,8 @@
                }
                entrar(datame,1);
             });
-         } else {
-            $("#status").html("No aceptó entrar 🙄");
-         }
-      }, {scope: 'public_profile,email'});
+         } else { $("#status").html("No aceptó entrar 🙄"); }
+      }, {scope: 'public_profile,email'}); //permisos
    }
    //g+ https://developers.google.com/identity/sign-in/web/sign-in
    var entrarGO = function() {
@@ -87,7 +78,7 @@
       gapi.load('auth2', function() {
          gapi.auth2.init({
             fetch_basic_profile: true,
-            scope: 'profile email'
+            scope: 'profile email' // permisos
          }).then(function() {
             auth2 = gapi.auth2.getAuthInstance();
             auth2.isSignedIn.listen(updateSignIn);
@@ -97,8 +88,6 @@
       var updateSignIn = function() {
          $("#status").html('Identificando...');
          if(auth2.isSignedIn.get()) {
-            //entrarGOgo(gapi.auth2.getAuthInstance());
-            //get profile
             var profile = auth2.currentUser.get().getBasicProfile();
             datame = {
                "social"      : "GO",
@@ -110,18 +99,13 @@
                "perfil"      : profile.getImageUrl(),
             }
             entrar(datame,1);
-         } else {
-            $("#status").html("No aceptó entrar 🙄");
-         }
+         } else { $("#status").html("No aceptó entrar 🙄"); }
       }
    }
    var entrar = function(datos, tok = "") {
       $.post("api.php",{login:datos,meme:'<?php echo $meme;?>',token:tok},function(m) {
-         if(m.id !== undefined) {
-            window.location = '<?php echo $_SESSION['redir'];?>';
-         } else {
-            $("#status").html('🤔 '+m.error);
-         }
+         if(m.id !== undefined) { window.location = '<?php echo $_SESSION['redir'];?>'; } 
+         else { $("#status").html('🤔 '+m.error); }
       },'json');
    }
 </script>

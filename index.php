@@ -76,11 +76,12 @@
             echo date('Y');
             include_once("ping.php"); 
             if(isset($_SESSION['foro'])) {
-               printf('/ <a href="%s?salir=1">salir</a>',$sitio);
+               printf(' / <a href="%s?salir=1">salir</a>',$sitio);
             } else {
-               printf('/ <a href="%s?entrar=1">entrar</a>',$sitio);
+               printf(' / <a href="%s?entrar=1">entrar</a>',$sitio);
             }
          ?>
+         / <a href="https://github.com/cuatl/foros">código fuente</a>
          </p>
          </footer>
 
