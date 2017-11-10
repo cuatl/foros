@@ -160,13 +160,21 @@
    </div>
 </div>
 <script>
+   <?php
+   ?>
    $(function() {
          $("TITLE").html('<?php echo stripslashes($post->titulo);?>');
-         $.post("api.php",{ post:<?php echo $post->id;?>,meme:'<?php echo $meme;?>' },function(m) {
-         },'json');
+         <?php
+            if(isset($_SESSION['foro'])) {
+            ?>
+            $.post("api.php",{ post:<?php echo $post->id;?>,meme:'<?php echo $meme;?>' },function(m) {
+            },'json');
+            <?php
+            }
+         ?>
    });
    var borramesta = function(id) {
-         if(!window.confirm('Se eliminará para siempre, no se puede recuperar...')) {
+      if(!window.confirm('Se eliminará para siempre, no se puede recuperar...')) {
                return false;
             } else {
                window.location = '<?php echo $sitio;?>?view=<?php echo $post->id;?>&rm='+id;
