@@ -52,6 +52,8 @@
          <?php
             if(isset($_GET['entrar'])) {
                include_once("entrar.php");
+            } elseif(isset($_GET['nuevo'])) {
+               include_once("editor.php");
             } elseif(isset($_GET['foro'])) {
                include_once("foros.php");
             } else {

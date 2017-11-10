@@ -5,6 +5,14 @@
    include_once(__DIR__."/config.php");
    $msg = new stdclass; $msg->error = "error :(";
    //
+   if (isset($_SERVER['HTTP_ORIGIN'])) {
+      if (in_array($_SERVER['HTTP_ORIGIN'], $sitios)) {
+         header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
+      } else {
+         header("HTTP/1.0 403 Origin Denied");
+         return;
+      }
+   }
    if(strcmp($_POST['meme'],$meme)) {
    } elseif(isset($_POST['login'])) {
       $user = (object)$_POST['login'];
