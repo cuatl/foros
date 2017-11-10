@@ -88,16 +88,25 @@
             relative_urls : false,
             plugins: [
             'autolink lists link image charmap print preview anchor textcolor',
-            'searchreplace visualblocks code fullscreen',
-            'insertdatetime media table contextmenu paste code help'
+            'searchreplace visualblocks code codesample fullscreen',
+            'insertdatetime media table contextmenu paste help'
             ],
-            toolbar: 'insert | undo redo |  bold italic | removeformat | link image code',
+            toolbar: 'insert | undo redo |  bold italic | removeformat | link image code | codesample',
             images_upload_url: 'postimg.php',
             images_upload_credentials: true,
             menubar:false,
             statusbar:false,
             image_class_list: [
             { title: "Adaptable", value: "img-fluid" }
+            ],
+            codesample_languages: [
+            {text: 'HTML/XML', value: 'markup'},
+            {text: 'JavaScript', value: 'javascript'},
+            {text: 'CSS', value: 'css'},
+            {text: 'PHP', value: 'php'},
+            {text: 'C++', value: 'cpp'},
+            {text: 'Swift', value: 'swift'},
+            {text: 'SQL', value: 'sql'},
             ],
       });
    </script>
@@ -165,3 +174,5 @@
          return false;
    }
 </script>
+<link rel="stylesheet" href="prism/prism.css">
+<script src="prism/prism.js" async></script>

@@ -18,15 +18,24 @@
             relative_urls : false,
             plugins: [
             'advlist autolink lists link image charmap print preview anchor textcolor',
-            'searchreplace visualblocks code fullscreen',
-            'insertdatetime media table contextmenu paste code help'
+            'searchreplace visualblocks code codesample fullscreen',
+            'insertdatetime media table contextmenu paste help'
             ],
-            toolbar: 'insert | undo redo | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist | removeformat | link image code | help',
+            toolbar: 'insert | undo redo | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist | removeformat | link image code | codesample | help',
             images_upload_url: 'postimg.php',
             images_upload_credentials: true,
             menubar:false,
             image_class_list: [
             { title: "Adaptable", value: "img-fluid" }
+            ],
+            codesample_languages: [
+            {text: 'HTML/XML', value: 'markup'},
+            {text: 'JavaScript', value: 'javascript'},
+            {text: 'CSS', value: 'css'},
+            {text: 'PHP', value: 'php'},
+            {text: 'C++', value: 'cpp'},
+            {text: 'Swift', value: 'swift'},
+            {text: 'SQL', value: 'sql'},
             ],
       });
    </script>
