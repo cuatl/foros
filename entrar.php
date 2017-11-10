@@ -20,7 +20,7 @@
 
       <p class="text-center">
       <button class="btn btn-primary mr-3" onclick="entrarFB()">Con Facebook</button>
-      <button class="btn btn-danger" onclick="entrarGO()">Con Google+</button>
+      <button class="btn btn-danger" onclick="entrarGO()">Con Google</button>
       </p>
 
       <p>

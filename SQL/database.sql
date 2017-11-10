@@ -37,5 +37,38 @@ CREATE TABLE `posts` (
   PRIMARY KEY (`id`),
   KEY `padre` (`padre`),
   KEY `me` (`me`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='Posts'
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COMMENT='Posts'
+
+#
+# tabla postslog
+#
+CREATE TABLE `postslog` (
+  `postid` int(11) NOT NULL,
+  `me` int(11) NOT NULL,
+  `fecha` datetime DEFAULT NULL,
+  UNIQUE KEY `postid` (`postid`,`me`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4
+
+#
+# tabla users
+#
+CREATE TABLE `users` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `socialid` varchar(64) NOT NULL DEFAULT '',
+  `alta` date DEFAULT NULL,
+  `nombre` varchar(64) DEFAULT NULL,
+  `apellido` varchar(64) DEFAULT NULL,
+  `correo` varchar(64) DEFAULT NULL,
+  `genero` varchar(16) DEFAULT NULL,
+  `alias` varchar(16) DEFAULT NULL,
+  `avatar` varchar(16) DEFAULT NULL,
+  `seen` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `tipo` enum('FB','GO') DEFAULT 'FB',
+  `perfil` varchar(512) DEFAULT NULL,
+  `vinculada` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`socialid`),
+  KEY `tipo` (`tipo`),
+  KEY `vinculada` (`vinculada`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4
 
