@@ -1,9 +1,9 @@
 <?php
    if(isset($_POST['ping'])) {
       session_start();
-      if(isset($_SESSION['me'])) {
+      if(isset($_SESSION['foro'])) {
          require_once("config.php");
-         $sql->Query("UPDATE seen=now() WHERE lid = '".$_SESSION['me']."'");
+         $sql->Query("UPDATE seen=now() WHERE lid = '".$_SESSION['foro']."'");
       }
       if(!isset($_SESSION['pong'])) $_SESSION['pong']=1;
       $_SESSION['pong']++;

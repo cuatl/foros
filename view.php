@@ -1,7 +1,7 @@
 <?php
    /* muestra el post */
    if(isset($_GET['rm'])) {
-      $q = sprintf("DELETE FROM posts WHERE id = '%d' AND me = '%s'",__($_GET['rm']),$_SESSION['fit']);
+      $q = sprintf("DELETE FROM posts WHERE id = '%d' AND me = '%s'",__($_GET['rm']),$_SESSION['foro']);
       $sql->Query($q);
       printf('<p class="lead">Se <strong>eliminó</strong> un escrito 😞</p>');
    }
@@ -27,7 +27,7 @@
       <?php
          echo stripslashes($post->contenido);
          printf('<br><p class="text-muted small font-italic">publicado: %s</p>',$d->full);
-         if(isset($_SESSION['me']) &&$_SESSION['me'] == $post->me) {
+         if(isset($_SESSION['foro']) &&$_SESSION['foro'] == $post->me) {
          ?>
          <div class="bg-light">
             <a href="<?php echo $sitio;?>?nuevo=1&edit=<?php echo $post->id;?>">editar</a>
@@ -58,7 +58,7 @@
             if(!empty($k->titulo)) printf('<p class="lead">%s</p>',$k->titulo);
             echo stripslashes($k->contenido);
             printf('<p class="text-muted small font-italic">publicado: %s</p>',$d->full);
-            if(isset($_SESSION['me']) &&$_SESSION['me'] == $k->me) {
+            if(isset($_SESSION['foro']) &&$_SESSION['foro'] == $k->me) {
             ?>
             <br />
             <div class="bg-light">
