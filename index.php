@@ -10,6 +10,7 @@
    if(preg_match("/(Blackberry|SymbianOS|iPod|iPhone|Android|Opera Mini|Windows Phone)/i",$_SERVER['HTTP_USER_AGENT'])) {
       if(!preg_match("/(iPad)/i",$_SERVER['HTTP_USER_AGENT'])){ $mobile=true; }
    }
+   include_once("utils.php");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -54,6 +55,8 @@
                include_once("entrar.php");
             } elseif(isset($_GET['nuevo'])) {
                include_once("editor.php");
+            } elseif(isset($_GET['view'])) {
+               include_once("view.php");
             } elseif(isset($_GET['foro'])) {
                include_once("foros.php");
             } else {

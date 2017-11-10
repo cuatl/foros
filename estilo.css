@@ -1,0 +1,11 @@
+.picportada {
+   height:200px;
+   width:100%;
+   max-width:100% !important;
+   background-size:100% !important;
+}
+big {
+   font-size:2em;
+   font-weight:900;
+   color:#ddd;
+}
