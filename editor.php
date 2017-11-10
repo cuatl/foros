@@ -1,7 +1,7 @@
 <?php
    if(!isset($_SESSION['foro'])) {
       $_SESSION['redir'] = "foros/?nuevo=".__($_GET['nuevo']);
-      die("Debe estar <a href=\"/foros/?entrar=1\">identificado</a>.");
+      die("Debe estar <a href=\"".$sitio."?entrar=1\">identificado</a>.");
    }
 ?>
 <h1>Escribir nuevo post</h1>
@@ -38,8 +38,8 @@
       $debug=false;
       /* post image {{{ */
       if(isset($_FILES['archivo']['tmp_name']) && is_uploaded_file($_FILES['archivo']['tmp_name']) && substr($_FILES['archivo']['type'],0,6) == 'image/') {
+         $imageFolder = __DIR__."/up/";
          if($debug) echo "<pre> --- \n";
-            $imageFolder = "/var/www/tar/foros/up/";
          $pato = $imageFolder.date('Y/m/');
          $ext = strtolower(pathinfo($_FILES['archivo']['name'], PATHINFO_EXTENSION));
          $file =    uniqid()."_o.".$ext;
@@ -89,7 +89,7 @@
                $cmd = `$cmd`;
             }
          }
-         $image = "<p class=\"text-center\"><img class=\"img-fluid\" src=\"https://tar.mx/foros/up/".date('Y/m/').$filet."\" alt=\"imagen\" /></p>";
+         $image = "<p class=\"text-center\"><img class=\"img-fluid\" src=\"".$sitio."up/".date('Y/m/').$filet."\" alt=\"imagen\" /></p>";
       }
       /* }}} */
       if($mobile) $body = $image.nl2br($_POST['contenido']);
@@ -116,13 +116,13 @@
       Su post ha sido almacenado y publicado.
       </p>
    </div>
-   <a class="btn btn-light" href="/foros/?nuevo=1&edit=<?php echo $ID;?>">volver a editar</a>
+   <a class="btn btn-light" href="<?php echo $sitio;?>?nuevo=1&edit=<?php echo $ID;?>">volver a editar</a>
    <?php
       $urlt = ($padre>0) ? "view=".$padre."#r".$ID : "view=".$ID;
    ?>
-   <a class="btn btn-secondary" href="/foros/?<?php echo $urlt;?>">ver escrito</a>
+   <a class="btn btn-secondary" href="<?php echo $sitio;?>?<?php echo $urlt;?>">ver escrito</a>
    <script>
-      $(function() { setTimeout(function() { window.location = '/foros/?<?php echo $urlt;?>'; },5000); });
+      $(function() { setTimeout(function() { window.location = '<?php echo $sitio."?".$urlt;?>'; },5000); });
    </script>
    <?php
       exit();

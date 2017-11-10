@@ -1,11 +1,11 @@
 <?php
    session_start();
+   include_once(__DIR__."/config.php");
    if(isset($_GET['salir'])) {
       session_destroy();
-      header("Location: /foros/");
+      header("Location: ".$sitio);
       exit();
    }
-   include_once(__DIR__."/config.php");
    $mobile=false;
    if(preg_match("/(Blackberry|SymbianOS|iPod|iPhone|Android|Opera Mini|Windows Phone)/i",$_SERVER['HTTP_USER_AGENT'])) {
       if(!preg_match("/(iPad)/i",$_SERVER['HTTP_USER_AGENT'])){ $mobile=true; }
@@ -27,7 +27,7 @@
    <body>
       <div class="container">
          <div class="masthead">
-            <h3><a href="/foros/" class="text-muted">Foros</a></h3>
+            <h3><a href="<?php echo $sitio;?>" class="text-muted">Foros</a></h3>
             <nav class="navbar navbar-expand-lg navbar-light bg-light rounded mb-3">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                <span class="navbar-toggler-icon"></span>
@@ -35,14 +35,17 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                <ul class="navbar-nav mr-auto">
                   <li class="nav-item active">
-                  <a class="nav-link" href="/foros/">Inicio <span class="sr-only">(current)</span></a></li>
+                  <a class="nav-link" href="<?php echo $sitio;?>">Inicio <span class="sr-only">(current)</span></a></li>
                   <li class="nav-item"><a class="nav-link" href="/">tar.mx</a></li>
                </ul>
                <?php
+                  if(!isset($_SESSION['foro'])) {
+                     printf('<span class="navbar-text float-right"><a href="%s?entrar=1">entrar</a></span>',$sitio);
+                  }
                   if(isset($_SESSION['me'])) {
                      @$img = avatar([$_SESSION['fit'],$_SESSION['data']->avatar,$_SESSION['data']->fecha,$_SESSION['data']->image['url']],$_SESSION['tipo']);
                      $img = sprintf('<img src="%s" width="30" alt="me" /> ',$img);
-                     printf('<span class="navbar-text float-right"><a href="/foros/?perfil=1">%s%s</a></span>',$img,$_SESSION['data']->alias);
+                     printf('<span class="navbar-text float-right"><a href="%s?perfil=1">%s%s</a></span>',$sitio,$img,$_SESSION['data']->alias);
                   }
                ?>
             </div>
@@ -74,9 +77,9 @@
             echo date('Y');
             include_once("ping.php"); 
             if(isset($_SESSION['foro'])) {
-               printf('/ <a href="/foros/?salir=1">salir</a>');
+               printf('/ <a href="%s?salir=1">salir</a>',$sitio);
             } else {
-               printf('/ <a href="/foros/?entrar=1">entrar</a>');
+               printf('/ <a href="%s?entrar=1">entrar</a>',$sitio);
             }
          ?>
          </p>

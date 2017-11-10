@@ -14,7 +14,7 @@
    $post = $post->fetch_object();
    $foro=$sql->Query("SELECT F.*,MA.nombre FROM foros F, forotes MA WHERE F.master=MA.id AND F.id = '".$post->foro."'");
    $foro = $foro->fetch_object();
-   printf('<p class="lead text-center">%s » <a href="/foros/?foro=%d#%s">%s</a></p>',$foro->nombre,$foro->id,$foro->titulo,stripslashes($foro->titulo));
+   printf('<p class="lead text-center">%s » <a href="%s?foro=%d#%s">%s</a></p>',$foro->nombre,$sitio,$foro->id,$foro->titulo,stripslashes($foro->titulo));
 ?>
 <div class="row">
    <div class="col-sm-3 bg-dark text-white">
@@ -22,7 +22,7 @@
       <?php
          $avatar = avatar([$post->oid,$post->avatar,$post->alta,$post->perfil,300],$post->tipo);
       ?>
-      <a href="/foros/?u=<?php echo $post->lid;?>"><img src="<?php echo $avatar;?>" class="rounded py-3" width="150" alt="imagen" /></a>
+      <a href="<?php echo $sitio;?>?u=<?php echo $post->lid;?>"><img src="<?php echo $avatar;?>" class="rounded py-3" width="150" alt="imagen" /></a>
       </p>
       Escrito por <strong><?php echo (!empty($post->alias)?$post->alias:$post->nombre);?></strong> <?php $d = lafecha($post->fecha);echo $d->fechas;?>
    </div>
@@ -34,7 +34,7 @@
          if(isset($_SESSION['me']) &&$_SESSION['me'] == $post->me) {
          ?>
          <div class="bg-light">
-            <a href="/foros/?nuevo=1&edit=<?php echo $post->id;?>">editar</a>
+            <a href="<?php echo $sitio;?>?nuevo=1&edit=<?php echo $post->id;?>">editar</a>
          </div>
          <?php
          }
@@ -52,7 +52,7 @@
    <div class="row" id="r<?php echo $k->id;?>">
       <div class="col-sm-3 bg-light">
          <p class="text-center">
-         <a href="/foros/?u=<?php echo $k->lid;?>"><img src="<?php echo avatar([$k->oid,$k->avatar,$k->alta,$k->perfil,300],$k->tipo); ?>" class="rounded py-3" width="150" alt="imagen" /></a>
+         <a href="<?php echo $sitio;?>?u=<?php echo $k->lid;?>"><img src="<?php echo avatar([$k->oid,$k->avatar,$k->alta,$k->perfil,300],$k->tipo); ?>" class="rounded py-3" width="150" alt="imagen" /></a>
          </p>
          Escrito por <strong><?php echo (!empty($k->alias)?$k->alias:$k->nombre);?></strong> <?php $d = lafecha($k->fecha);echo $d->fechas;?>
       </div>
@@ -66,7 +66,7 @@
             ?>
             <br />
             <div class="bg-light">
-               <a href="/foros/?nuevo=1&edit=<?php echo $k->id;?>">editar</a>
+               <a href="<?php echo $sitio;?>?nuevo=1&edit=<?php echo $k->id;?>">editar</a>
                /
                <a href="#" onclick="return borramesta(<?php echo $k->id;?>)">borrar</a>
             </div>
@@ -116,7 +116,7 @@
       <?php
          if(isset($_SESSION['foro'])) {
          ?>
-         <form method="post" action="https://tar.mx/foros/?nuevo=1" enctype="multipart/form-data">
+         <form method="post" action="<?php echo $sitio;?>?nuevo=1" enctype="multipart/form-data">
             <input type="hidden" name="padre" value="<?php echo $post->id;?>" />
             <input type="hidden" name="cat" value="<?php echo $post->foro;?>" />
             <textarea name="contenido" class="form-control" rows="8"></textarea>
@@ -137,9 +137,9 @@
          </form>
          <?php
          } else {
-            $_SESSION['redir'] = "/foros/?view=".$post->id;
+            $_SESSION['redir'] = $sitio."?view=".$post->id;
          ?>
-         Para escribir, es necesario estar identificado. <a href="/foros/?entrar=1" class="btn btn-secondary">Puedes entrar</a>
+         Para escribir, es necesario estar identificado. <a href="<?php echo $sitio;?>?entrar=1" class="btn btn-secondary">Puedes entrar</a>
          con tu cuenta de Facebook o Google+ :-)
          <?php
          }
@@ -148,7 +148,7 @@
    <div class="col-sm-4">
       Este contenido está almacenado en 
       <?php
-         printf('<p class="lead">%s » <a href="/foros/?foro=%d#%s">%s</a></p>',$foro->nombre,$foro->id,$foro->titulo,stripslashes($foro->titulo));
+         printf('<p class="lead">%s » <a href="%s?foro=%d#%s">%s</a></p>',$foro->nombre,$sitio,$foro->id,$foro->titulo,stripslashes($foro->titulo));
       ?>
       fue inicialmente escrito por <strong class="text-italic"><?php echo (!empty($post->alias)?$post->alias:$post->nombre);?></strong>
       y actualmente tiene <?php echo $no;?> respuesta<?php echo ($no<>1?'s':null); ?>.
@@ -164,7 +164,7 @@
          if(!window.confirm('Se eliminará para siempre, no se puede recuperar...')) {
                return false;
             } else {
-               window.location = 'https://tar.mx/foros/?view=<?php echo $post->id;?>&rm='+id;
+               window.location = '<?php echo $sitio;?>?view=<?php echo $post->id;?>&rm='+id;
          }
          return false;
    }

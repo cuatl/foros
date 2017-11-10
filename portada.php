@@ -9,7 +9,7 @@
    <?php
       $res=$sql->Query("SELECT * FROM foros WHERE master='".$ma->id."'");
       while($k = $res->fetch_object()) {
-         printf('<a href="/foros/?foro=%d#%s">%s</a> / ',$k->id,$k->titulo,$k->titulo);
+         printf('<a href="%s?foro=%d#%s">%s</a> / ',$sitio,$k->id,$k->titulo,$k->titulo);
       }
    ?>
    <div class="card-deck">
@@ -41,14 +41,14 @@
                <?php
                   if(!empty($image)) {
                   ?>
-                  <a href="/foros/?view=<?php echo $k->id;?>">
+                  <a href="<?php echo $sitio;?>?view=<?php echo $k->id;?>">
                      <img class="card-img-top picportada" src="s.gif" style="background:url(<?php echo $image;?>)" alt="Card image cap">
                   </a>
                   <?php
                   }
                ?>
                <div class="card-body">
-                  <h4 class="card-title"><a href="/foros/?view=<?php echo $k->id;?>"><?php echo stripslashes($k->titulo);?></a></h4>
+                  <h4 class="card-title"><a href="<?php echo $sitio;?>?view=<?php echo $k->id;?>"><?php echo stripslashes($k->titulo);?></a></h4>
                   <h6 class="card-subtitle mb-2 text-muted"><?php echo $foro->titulo;?></h6>
                   <p class="card-text">
                   <?php

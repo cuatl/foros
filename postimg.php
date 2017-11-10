@@ -57,7 +57,7 @@
             copy($filetowrite,$filet);
             $cmd = "convert -thumbnail 200 -flatten -quality 60 -background white ".$filetowrite."[0] ". $pato.$filete; $cmd = `$cmd`;
          }
-         echo json_encode(array('location' => "https://tar.mx/foros/up/".date('Y/m/').$filet));
+         echo json_encode(array('location' => $sitio."up/".date('Y/m/').$filet));
       }
    } else {
       header("HTTP/1.0 500 Server Error");

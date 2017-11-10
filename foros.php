@@ -7,7 +7,7 @@
       $foro = $foro->fetch_object();
    ?>
    <h2>
-      <a href="/foros/?foros=1"><?php echo $foro->nombre;?></a>
+      <a href="<?php echo $sitio;?>?foros=1"><?php echo $foro->nombre;?></a>
       /
       <?php echo $foro->titulo; ?>
    </h2>
@@ -31,7 +31,7 @@
                   ?>
                   <tr>
                      <td>
-                        <a href="/foros/?view=<?php echo $k->id; ?>"><?php echo $k->titulo;?></a>
+                        <a href="<?php echo $sitio;?>?view=<?php echo $k->id; ?>"><?php echo $k->titulo;?></a>
                         <?php
                            //leído?
                            $last=$sql->Query("SELECT fecha FROM posts WHERE padre='".$k->id."' order by id desc limit 1");
@@ -47,7 +47,7 @@
                            }
                         ?>
                      </td>
-                     <td><a href="/foros/?u=<?php echo $k->lid;?>"><?php echo (empty($k->alias)?$k->nombre:$k->alias); ?></a></td>
+                     <td><a href="<?php echo $sitio;?>?u=<?php echo $k->lid;?>"><?php echo (empty($k->alias)?$k->nombre:$k->alias); ?></a></td>
                      <td><?php $d=lafecha($k->fecha); echo $d->fechas;?></td>
                   </tr>
                   <?php
@@ -57,10 +57,10 @@
          </table>
          <?php
             if(!isset($_SESSION['foro'])) {
-               printf('¿Quieres escribir algo? por favor <a href="/foros/?entrar=1">identificate</a>');
+               printf('¿Quieres escribir algo? por favor <a href="%s?entrar=1">identificate</a>',$sitio);
             } else {
-               if($no==0) printf('Aún <strong>no hay</strong> escritos en este foro - <a href="/foros/?nuevo=%d" class="btn btn-outline-secondary btn-sm">escribir nuevo</a>',$foro->id);
-               else printf('<p class="lead">Hay %s escritos 😬 en <strong>%s</strong> -  <a href="/foros/?nuevo=%d" class="btn btn-outline-secondary btn-sm">escribir nuevo</a></p>',$no,$foro->titulo,$foro->id);
+               if($no==0) printf('Aún <strong>no hay</strong> escritos en este foro - <a href="%s?nuevo=%d" class="btn btn-outline-secondary btn-sm">escribir nuevo</a>',$sitio,$foro->id);
+               else printf('<p class="lead">Hay %s escritos 😬 en <strong>%s</strong> -  <a href="%s?nuevo=%d" class="btn btn-outline-secondary btn-sm">escribir nuevo</a></p>',$no,$foro->titulo,$sitio,$foro->id);
             }
          ?>
       </div>
@@ -70,7 +70,7 @@
             <?php
                $foros=$sql->Query("SELECT F.* FROM foros F WHERE F.master = '".$foro->master."'");
                while($k = $foros->fetch_object()) {
-                  printf('<a href="/foros/?foro=%d#%s" class="list-group-item list-group-item-action">%s</a>',$k->id,$k->titulo,$k->titulo);
+                  printf('<a href="%s?foro=%d#%s" class="list-group-item list-group-item-action">%s</a>',$sitio,$k->id,$k->titulo,$k->titulo);
                }
             ?>
          </div>
@@ -80,7 +80,7 @@
             <?php
                $foros=$sql->Query("SELECT F.* FROM foros F order by master");
                while($k = $foros->fetch_object()) {
-                  printf('<a href="/foros/?foro=%d#%s" class="list-group-item list-group-item-action">%s</a>',$k->id,$k->titulo,$k->titulo);
+                  printf('<a href="%s?foro=%d#%s" class="list-group-item list-group-item-action">%s</a>',$sitio,$k->id,$k->titulo,$k->titulo);
                }
             ?>
          </div>

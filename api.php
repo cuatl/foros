@@ -1,8 +1,8 @@
 <?php
    //api foros
    session_start();
-   if(!isset($_SESSION['redir'])) $_SESSION['redir'] = "/foros/";
    include_once(__DIR__."/config.php");
+   if(!isset($_SESSION['redir'])) $_SESSION['redir'] = $sitio;
    $msg = new stdclass; $msg->error = "error :(";
    //
    if(isset($_SERVER['HTTP_ORIGIN'])) {

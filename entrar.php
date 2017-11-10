@@ -1,6 +1,6 @@
 <?php
    if(isset($_SESSION['foro'])) {
-      $redir = (!empty($_SESSION['redir'])) ? $_SESSION['redir'] : "/foros/";
+      $redir = (!empty($_SESSION['redir'])) ? $_SESSION['redir'] : $sitio;
       echo $redir;
    ?>
    ya te reconocí... <a href="<?php echo $redir;?>">continuar</a>
@@ -10,6 +10,8 @@
    <?php
    }
 ?>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<meta name="google-signin-client_id" content="1056839610231-12vh6bs27gsg1adqdc3orqvo997lp97b.apps.googleusercontent.com"></meta><!-- cambiar por la llave de tu app en Google developer -->
 <div class="row">
    <div class="col-md-6 offset-md-3">
       <h3>Por favor identificate</h3>
@@ -37,6 +39,7 @@
       js.src = "https://connect.facebook.net/es_LA/sdk.js";
       fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
+   //
    window.fbAsyncInit = function() {
       FB.init({
          appId            : '139376216081066', //cambiar al identificador de tu aplicación
@@ -47,8 +50,11 @@
       });
       //FB.AppEvents.logPageView();
    }
-   //https://developers.facebook.com/docs/facebook-login/permissions
+   //
    var datame = {};
+   //
+
+   //https://developers.facebook.com/docs/facebook-login/permissions
    var entrarFB = function() {
       FB.login(function(response) {
          // handle the response

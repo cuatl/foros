@@ -16,7 +16,7 @@
       var pong=0; $(document).ready(function(){ var pong = setTimeout("pingPong()",500); });
       function pingPong() {
             if(pong) { clearTimeout(pong); } 
-            $.post("/foros/ping.php",{ping:1,ts:<?php echo time();?>},function(m) {
+            $.post("<?php echo $sitio;?>ping.php",{ping:1,ts:<?php echo time();?>},function(m) {
                   $(".pingpong").html(m.pong); 
             },'json'); 
             pong = setTimeout("pingPong()",1000*30); 
