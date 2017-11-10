@@ -11,6 +11,7 @@
       if(!preg_match("/(iPad)/i",$_SERVER['HTTP_USER_AGENT'])){ $mobile=true; }
    }
    include_once("utils.php");
+   $utils = new Utils();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -39,13 +40,11 @@
                   <li class="nav-item"><a class="nav-link" href="/">tar.mx</a></li>
                </ul>
                <?php
+                  //imagen usuario
                   if(!isset($_SESSION['foro'])) {
                      printf('<span class="navbar-text float-right"><a href="%s?entrar=1">entrar</a></span>',$sitio);
-                  }
-                  if(isset($_SESSION['me'])) {
-                     @$img = avatar([$_SESSION['fit'],$_SESSION['data']->avatar,$_SESSION['data']->fecha,$_SESSION['data']->image['url']],$_SESSION['tipo']);
-                     $img = sprintf('<img src="%s" width="30" alt="me" /> ',$img);
-                     printf('<span class="navbar-text float-right"><a href="%s?perfil=1">%s%s</a></span>',$sitio,$img,$_SESSION['data']->alias);
+                  } else {
+                     @printf('<span class="navbar-text float-right"><a href="%s?perfil=me"><img src="%s" height="30" alt="me" /></a></span>',$sitio,$utils->pic([$_SESSION['data']->social, $_SESSION['data']->perfil, $_SESSION['data']->avatar,$_SESSION['data']->alta,$_SESSION['data']->socialid],14));
                   }
                ?>
             </div>

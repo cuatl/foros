@@ -5,9 +5,8 @@
       $sql->Query($q);
       printf('<p class="lead">Se <strong>eliminó</strong> un escrito 😞</p>');
    }
-   $q = "SELECT P.*,U.nombre,U.alta,U.avatar,U.alias,U.id as lid,U.id as oid,U.perfil,U.tipo FROM posts P,users U WHERE  P.me=U.id and P.id = '    ".__($_GET['view'])."'";
+   $q = "SELECT P.*,U.nombre,U.alta,U.avatar,U.perfil,U.tipo,U.alias,U.socialid,U.id as lid,U.perfil,U.tipo FROM posts P,users U WHERE  P.me=U.id and P.id = '    ".__($_GET['view'])."'";
    $post = $sql->Query($q);
-   echo $sql->error;
    if($post->num_rows<1) {
       die(sprintf('<p class="lead">Ese escrito <strong>se ha desvanecido</strong> o nunca existió 😱</p>'));
    }
@@ -19,12 +18,9 @@
 <div class="row">
    <div class="col-sm-3 bg-dark text-white">
       <p class="text-center">
-      <?php
-         $avatar = avatar([$post->oid,$post->avatar,$post->alta,$post->perfil,300],$post->tipo);
-      ?>
-      <a href="<?php echo $sitio;?>?u=<?php echo $post->lid;?>"><img src="<?php echo $avatar;?>" class="rounded py-3" width="150" alt="imagen" /></a>
+      <a href="<?php echo $sitio;?>?u=<?php echo $post->lid;?>"><img src="<?php echo  $utils->pic([$post->tipo, $post->perfil, $post->avatar, $post->alta,$post->socialid],300);?>" class="rounded py-3" width="150" alt="imagen" /></a>
       </p>
-      Escrito por <strong><?php echo (!empty($post->alias)?$post->alias:$post->nombre);?></strong> <?php $d = lafecha($post->fecha);echo $d->fechas;?>
+      Escrito por <strong><?php echo (!empty($post->alias)?$post->alias:$post->nombre);?></strong> <?php $d = $utils->fecha($post->fecha);echo $d->fechas;?>
    </div>
    <div class="col-sm-9">
       <h1><?php echo stripslashes($post->titulo);?></h1>
@@ -45,16 +41,16 @@
 <hr />
 <?php
    //hijos
-   $res = $sql->Query("SELECT P.*,U.nombre,U.alta,U.avatar,U.alias,U.id as lid,U.id as oid,U.perfil,U.tipo FROM posts P, users U WHERE P.me=U.id and P.padre = '".$post->id."' order by P.id");
+   $res = $sql->Query("SELECT P.*,U.nombre,U.alta,U.avatar,U.perfil,U.tipo,U.alias,U.socialid, U.id as lid,U.perfil,U.tipo FROM posts P, users U WHERE P.me=U.id and P.padre = '".$post->id."' order by P.id");
    $no=0;
    while($k = $res->fetch_object()) {
    ?>
    <div class="row" id="r<?php echo $k->id;?>">
       <div class="col-sm-3 bg-light">
          <p class="text-center">
-         <a href="<?php echo $sitio;?>?u=<?php echo $k->lid;?>"><img src="<?php echo avatar([$k->oid,$k->avatar,$k->alta,$k->perfil,300],$k->tipo); ?>" class="rounded py-3" width="150" alt="imagen" /></a>
+         <a href="<?php echo $sitio;?>?u=<?php echo $k->lid;?>"><img src="<?php echo $utils->pic([$k->tipo, $k->perfil, $k->avatar, $k->alta,$k->socialid],300); ?>" class="rounded py-3" width="100" alt="imagen" /></a>
          </p>
-         Escrito por <strong><?php echo (!empty($k->alias)?$k->alias:$k->nombre);?></strong> <?php $d = lafecha($k->fecha);echo $d->fechas;?>
+         Escrito por <strong><?php echo (!empty($k->alias)?$k->alias:$k->nombre);?></strong> <?php $d = $utils->fecha($k->fecha);echo $d->fechas;?>
       </div>
       <div class="col-sm-9">
          <big class="float-right ml-2"><?php echo ++$no;?></big>
