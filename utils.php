@@ -10,9 +10,11 @@
       function pic() {
          $data = func_get_arg(0);
          @$size = func_get_arg(1);
-         if(empty($size)) $size=50;
-         if($data[0] == 'GO') return $data[1];
+         if(empty($size) || $size < 200 || $size >720) $size=200;
+         if(!empty($data[2])) return sprintf('up/perfil/%s%s.jpg',date('/Y/m/',strtotime($data[3])),$data[2]);
+         elseif($data[0] == 'GO') return str_replace("s96-c","s".$size."-c",$data[1]);
          elseif($data[0] == 'FB') return sprintf("https://graph.facebook.com/v2.11/%s/picture?width=%d",$data[4],$size);
+         else return "s.gif";
       }
       /* regresa un arreglo de fechas */
       function fecha($f) {

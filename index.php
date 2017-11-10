@@ -61,6 +61,8 @@
                include_once("view.php");
             } elseif(isset($_GET['foro'])) {
                include_once("foros.php");
+            } elseif(isset($_GET['perfil'])) {
+               include_once("perfil.php");
             } else {
                include_once("portada.php");
             }
@@ -92,6 +94,6 @@
 </html>
 <pre>
    <?php
-      //print_r($_SESSION);
+      print_r($_SESSION);
    ?>
 </pre>
