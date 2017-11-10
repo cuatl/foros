@@ -112,26 +112,38 @@
 <hr />
 <div class="row">
    <div class="col-sm-8">
-      Escriba una respuesta
-      <form method="post" action="https://tar.mx/foros/?nuevo=1" enctype="multipart/form-data">
-         <input type="hidden" name="padre" value="<?php echo $post->id;?>" />
-         <input type="hidden" name="cat" value="<?php echo $post->foro;?>" />
-         <textarea name="contenido" class="form-control" rows="8"></textarea>
-         <?php
-            if($mobile) {
-            ?>
-            <div class="form-group">
-               <label>Agregar imagen</label>
-               <input type="file" name="archivo" class="form-control" placeholder="archivo" accept="image/*">
-            </div>
-            <?php
-            }
+      Escribe una respuesta
+      <?php
+         if(isset($_SESSION['foro'])) {
          ?>
-         <br />
-         <div class="form-group text-center">
-            <button class="btn btn-lg btn-primary">Enviar respuesta</button>
-         </div>
-      </form>
+         <form method="post" action="https://tar.mx/foros/?nuevo=1" enctype="multipart/form-data">
+            <input type="hidden" name="padre" value="<?php echo $post->id;?>" />
+            <input type="hidden" name="cat" value="<?php echo $post->foro;?>" />
+            <textarea name="contenido" class="form-control" rows="8"></textarea>
+            <?php
+               if($mobile) {
+               ?>
+               <div class="form-group">
+                  <label>Agregar imagen</label>
+                  <input type="file" name="archivo" class="form-control" placeholder="archivo" accept="image/*">
+               </div>
+               <?php
+               }
+            ?>
+            <br />
+            <div class="form-group text-center">
+               <button class="btn btn-lg btn-primary">Enviar respuesta</button>
+            </div>
+         </form>
+         <?php
+         } else {
+            $_SESSION['redir'] = "/foros/?view=".$post->id;
+         ?>
+         Para escribir, es necesario estar identificado. <a href="/foros/?entrar=1" class="btn btn-secondary">Puedes entrar</a>
+         con tu cuenta de Facebook o Google+ :-)
+         <?php
+         }
+      ?>
    </div>
    <div class="col-sm-4">
       Este contenido está almacenado en 
