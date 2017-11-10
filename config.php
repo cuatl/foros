@@ -10,3 +10,4 @@
    $sql = new MySQLi($sqls->host,$sqls->user,$sqls->pass,$sqls->data);
    $sql->Query("SET names 'utf8mb4'");
    function __($t) { return addslashes(strip_tags($t)); }
+   $meme=md5('ola ke ase o ke ase'.date('YmdH'));
