@@ -11,5 +11,8 @@
    $sql->Query("SET names 'utf8mb4'");
    function __($t) { return addslashes(strip_tags($t)); }
    $meme=md5('ola ke ase o ke ase'.date('YmdH'));
-   $sitio= "http://tar.mx/foros/"; // URL sitio publicado
+   $sitio= "https://tar.mx/foros/"; // URL sitio publicado
    $sitios = ["https://tar.mx","http://tar.mx"]; //dominios donde esté el foro
+   //SOCIAL para identificarnos con Facebook o Google
+   define("GOOGLE","1056839610231-12vh6bs27gsg1adqdc3orqvo997lp97b.apps.googleusercontent.com"); // Google+ Client ID
+   define("FACEBOOK","139376216081066"); //Facebook APP ID

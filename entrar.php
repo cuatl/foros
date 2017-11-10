@@ -11,14 +11,14 @@
    }
 ?>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
-<meta name="google-signin-client_id" content="1056839610231-12vh6bs27gsg1adqdc3orqvo997lp97b.apps.googleusercontent.com"></meta><!-- cambiar por la llave de tu app en Google developer -->
+<meta name="google-signin-client_id" content="<?php echo GOOGLE;?>"></meta>
 <div class="row">
    <div class="col-md-6 offset-md-3">
       <h3>Por favor identificate</h3>
 
       <p class="text-center">
-      <button class="btn btn-primary" onclick="entrarFB()">Con Facebook</button>
-      <button class="btn btn-danger">Con Google+</button>
+      <button class="btn btn-primary mr-3" onclick="entrarFB()">Con Facebook</button>
+      <button class="btn btn-danger" onclick="entrarGO()">Con Google+</button>
       </p>
 
       <p>
@@ -42,7 +42,7 @@
    //
    window.fbAsyncInit = function() {
       FB.init({
-         appId            : '139376216081066', //cambiar al identificador de tu aplicación
+         appId            : '<?php echo FACEBOOK;?>', //cambiar al identificador de tu aplicación
          autoLogAppEvents : false,
          status           : false,
          xfbml            : false,
@@ -56,6 +56,7 @@
 
    //https://developers.facebook.com/docs/facebook-login/permissions
    var entrarFB = function() {
+      $("#status").html("Accediendo con Facebook...");
       FB.login(function(response) {
          // handle the response
          if (response.authResponse) {
@@ -73,17 +74,54 @@
                   "verificado"  : response.verified,
                   "direccion"   : response.link,
                }
-               $.post("api.php",{login:datame,meme:'<?php echo $meme;?>',token:tok},function(m) {
-                  if(m.id !== undefined) {
-                     window.location = '<?php echo $_SESSION['redir'];?>';
-                  } else {
-                     $("#status").html('🤔 '+m.error);
-                  }
-               },'json');
+               entrar(datame,1);
             });
          } else {
             $("#status").html("No aceptó entrar 🙄");
          }
       }, {scope: 'public_profile,email'});
+   }
+   //g+ https://developers.google.com/identity/sign-in/web/sign-in
+   var entrarGO = function() {
+      $("#status").html("Accediendo con Google...");
+      gapi.load('auth2', function() {
+         gapi.auth2.init({
+            fetch_basic_profile: true,
+            scope: 'profile email'
+         }).then(function() {
+            auth2 = gapi.auth2.getAuthInstance();
+            auth2.isSignedIn.listen(updateSignIn);
+            auth2.then(updateSignIn);
+         });
+      });
+      var updateSignIn = function() {
+         $("#status").html('Identificando...');
+         if(auth2.isSignedIn.get()) {
+            //entrarGOgo(gapi.auth2.getAuthInstance());
+            //get profile
+            var profile = auth2.currentUser.get().getBasicProfile();
+            datame = {
+               "social"      : "GO",
+               "id"          : profile.getId(),
+               "correo"      : profile.getEmail(),
+               "nombres"     : profile.getName(),
+               "nombre"      : profile.getGivenName(),
+               "apellido"    : profile.getFamilyName(),
+               "perfil"      : profile.getImageUrl(),
+            }
+            entrar(datame,1);
+         } else {
+            $("#status").html("No aceptó entrar 🙄");
+         }
+      }
+   }
+   var entrar = function(datos, tok = "") {
+      $.post("api.php",{login:datos,meme:'<?php echo $meme;?>',token:tok},function(m) {
+         if(m.id !== undefined) {
+            window.location = '<?php echo $_SESSION['redir'];?>';
+         } else {
+            $("#status").html('🤔 '+m.error);
+         }
+      },'json');
    }
 </script>
