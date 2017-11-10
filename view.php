@@ -145,7 +145,7 @@
 <script>
    $(function() {
          $("TITLE").html('<?php echo stripslashes($post->titulo);?>');
-         $.post("api.php",{ post:<?php echo $post->id;?> },function(m) {
+         $.post("api.php",{ post:<?php echo $post->id;?>,meme:'<?php echo $meme;?>' },function(m) {
          },'json');
    });
    var borramesta = function(id) {

@@ -16,7 +16,7 @@
       <?php
          $rex=$sql->Query("SELECT * FROM foros WHERE master='".$ma->id."' order by orden");
          while($foro = $rex->fetch_object()) {
-            $res=$sql->Query("SELECT * FROM posts WHERE foro='".$foro->id."' AND padre=0 order by id desc limit 1");
+            $res=$sql->Query("SELECT * FROM posts WHERE foro='".$foro->id."' AND padre=0 order by id desc limit 2");
             while($k = $res->fetch_object()) {
                //
                $last=$sql->Query("SELECT fecha FROM posts WHERE padre='".$k->id."' order by id desc limit 1");
