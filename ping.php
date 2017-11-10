@@ -1,4 +1,5 @@
 <?php
+   /* mantiene sesión "viva" */
    if(isset($_POST['ping'])) {
       session_start();
       if(isset($_SESSION['foro'])) {

@@ -1,4 +1,5 @@
 <?php
+   /* posts de portada */
    $master=$sql->Query("SELECT * FROM forotes order by orden");
    while($ma = $master->fetch_object()) {
    ?>

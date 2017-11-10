@@ -1,4 +1,5 @@
 <?php
+   /* listado de posts de un foro */
    if($_GET['foro'] == '0') {
       require_once("lastForos.php");
    } else {

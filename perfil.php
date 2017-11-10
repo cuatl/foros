@@ -1,4 +1,5 @@
 <?php
+   /* edición básica perfil usuario */
    if(!isset($_SESSION['foro'])) {
       $_SESSION['redir'] = $sitio."?perfil=me";
    ?>

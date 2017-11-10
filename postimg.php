@@ -1,10 +1,5 @@
 <?php
-   /*******************************************************
-   * Only these origins will be allowed to upload images *
-   ******************************************************/
-   /*********************************************
-   * Change this line to set the upload folder *
-   *********************************************/
+   /* ejemplo de subida de imágenes para tinymce */
    require_once(__DIR__."/config.php");
    $imageFolder = __DIR__."/up/";
    reset ($_FILES);
