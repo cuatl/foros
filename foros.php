@@ -56,7 +56,7 @@
             </tbody>
          </table>
          <?php
-            if(!isset($_SESSION['foros'])) {
+            if(!isset($_SESSION['foro'])) {
                printf('¿Quieres escribir algo? por favor <a href="/foros/?entrar=1">identificate</a>');
             } else {
                if($no==0) printf('Aún <strong>no hay</strong> escritos en este foro - <a href="/foros/?nuevo=%d" class="btn btn-outline-secondary btn-sm">escribir nuevo</a>',$foro->id);

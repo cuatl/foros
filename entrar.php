@@ -1,3 +1,15 @@
+<?php
+   if(isset($_SESSION['foro'])) {
+      $redir = (!empty($_SESSION['redir'])) ? $_SESSION['redir'] : "/foros/";
+      echo $redir;
+   ?>
+   ya te reconocí... <a href="<?php echo $redir;?>">continuar</a>
+   <script>
+      window.location = '<?php echo $redir;?>';
+   </script>
+   <?php
+   }
+?>
 <div class="row">
    <div class="col-md-6 offset-md-3">
       <h3>Por favor identificate</h3>
@@ -57,7 +69,7 @@
                }
                $.post("api.php",{login:datame,meme:'<?php echo $meme;?>',token:tok},function(m) {
                   if(m.id !== undefined) {
-                     window.location =  '<?php echo $_SESSION['redir'];?>';
+                     window.location = '<?php echo $_SESSION['redir'];?>';
                   } else {
                      $("#status").html('🤔 '+m.error);
                   }

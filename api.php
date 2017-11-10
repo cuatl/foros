@@ -1,6 +1,7 @@
 <?php
    //api foros
    session_start();
+   if(!isset($_SESSION['redir'])) $_SESSION['redir'] = "/foros/";
    include_once(__DIR__."/config.php");
    $msg = new stdclass; $msg->error = "error :(";
    //

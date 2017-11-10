@@ -64,9 +64,16 @@
          <hr />
          <footer class="footer">
          <p class="text-center">
-         &copy; tar.mx <?php echo date('Y');?>
-         <?php include_once("ping.php"); ?>
-         / <a href="/foros/?salir=1">salir</a>
+         &copy; tar.mx 
+         <?php 
+            echo date('Y');
+            include_once("ping.php"); 
+            if(isset($_SESSION['foro'])) {
+               printf('/ <a href="/foros/?salir=1">salir</a>');
+            } else {
+               printf('/ <a href="/foros/?entrar=1">entrar</a>');
+            }
+         ?>
          </p>
          </footer>
 
