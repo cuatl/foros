@@ -13,7 +13,6 @@
    }
 ?>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
-<!--<meta name="google-signin-client_id" content="<?php echo GOOGLE;?>"></meta>-->
 <div class="row">
    <div class="col-md-6 offset-md-3">
       <h3>Por favor identificate</h3>
