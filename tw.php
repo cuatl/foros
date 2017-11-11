@@ -70,7 +70,7 @@
          foreach($hash AS $k=>$v) $hashstring .= sprintf('%s=%s&',$k,$v);
          $hashstring = substr($hashstring,0,-1);
          $base = sprintf("GET&%s&%s",urlencode($url), rawurlencode($hashstring));
-         echo "<p>BASE: ".$base."</p>\n";
+         //echo "<p>BASE: ".$base."</p>\n";
          $key = sprintf("%s&%s",rawurlencode($tw["consumer_secret"]),$res['oauth_token_secret']);
          $signature = base64_encode(hash_hmac('sha1', $base, $key, TRUE));
          $hash['oauth_signature'] = urlencode($signature);
