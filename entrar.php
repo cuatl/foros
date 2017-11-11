@@ -11,6 +11,11 @@
    </script>
    <?php
    }
+   if(!strcmp($_GET['entrar'],'tw')) {
+      $inc = true;
+      include_once("tw.php"); //cambiar por twejemplo.php pero antes hay que poner las llaves de tu APP de TWITTER
+      return;
+   }
 ?>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <div class="row">
@@ -18,6 +23,7 @@
       <h3>Por favor identificate</h3>
 
       <p class="text-center">
+      <a href="/foros/?entrar=tw" class="btn btn-secondary mr-3">Con Twitter</a>
       <button class="btn btn-primary mr-3" onclick="entrarFB()">Con Facebook</button>
       <button class="btn btn-danger" onclick="entrarGO()" id="signin-button">Con Google</button>
       </p>
@@ -28,7 +34,7 @@
       en los ajustes de tu cuenta
       puedes vincular una cuenta con otra.
       </p>
-      <div id="status" class="alert alert-info"></div>
+      <div id="status" class="alert alert-info"><?php if(isset($_GET['denied'])) echo ":("; ?></div>
    </div>
 </div>
 <script>

@@ -13,6 +13,12 @@
    } elseif(isset($_POST['login'])) {
       $user = (object)$_POST['login'];
       $ID=false;
+      //
+      if($user->social == 'TW') {
+         $tmp = explode(" ",$user->nombres);
+         $user->nombre = $tmp[0];
+         $user->apellido  = implode(" ",array_slice($tmp,1));
+      }
       //existe?
       $q = sprintf("SELECT * FROM users WHERE socialid = '%s' AND tipo='%s' AND correo='%s'",__($user->id), __($user->social), __($user->correo));
       $e = $sql->Query($q);
@@ -34,7 +40,7 @@
             $msg->id = $ID = $sql->inser_id;
             $user->socialid = $user->id;
             $user->id = $ID;
-            $user->alias = $user->nombre;
+            if(!isset($user->alias)) $user->alias = $user->nombre;
          } else {
             $msg->error = "No se pudo almacenar el dato.";
             //$msg->qe = $sql->error; $msg->q = $q;
