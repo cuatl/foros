@@ -22,6 +22,7 @@
          $user->alta = $existe->alta;
          $user->alias = $existe->alias;
          $user->socialid = $user->id;
+         $user->avatar = $existe->avatar;
          $user->id = $ID;
          @$q = sprintf("UPDATE users SET perfil='%s', genero='%s', nombre='%s', apellido='%s' WHERE id = %d",__($user->perfil), __($user->genero),  __($user->nombre),  __($user->apellido),  $ID);
          $sql->Query($q);

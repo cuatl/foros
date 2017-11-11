@@ -13,14 +13,14 @@
    }
 ?>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
-<meta name="google-signin-client_id" content="<?php echo GOOGLE;?>"></meta>
+<!--<meta name="google-signin-client_id" content="<?php echo GOOGLE;?>"></meta>-->
 <div class="row">
    <div class="col-md-6 offset-md-3">
       <h3>Por favor identificate</h3>
 
       <p class="text-center">
       <button class="btn btn-primary mr-3" onclick="entrarFB()">Con Facebook</button>
-      <button class="btn btn-danger" onclick="entrarGO()">Con Google</button>
+      <button class="btn btn-danger" onclick="entrarGO()" id="signin-button">Con Google</button>
       </p>
 
       <p>
@@ -74,9 +74,15 @@
    }
    //g+ https://developers.google.com/identity/sign-in/web/sign-in
    var entrarGO = function() {
+      var auth2 = {};
       $("#status").html("Accediendo con Google...");
       gapi.load('auth2', function() {
+         gapi.signin2.render('signin-button', {
+            fetch_basic_profile: true,
+            scope: 'profile email',
+         });
          gapi.auth2.init({
+            client_id: '<?php echo GOOGLE;?>',
             fetch_basic_profile: true,
             scope: 'profile email' // permisos
          }).then(function() {
@@ -99,7 +105,9 @@
                "perfil"      : profile.getImageUrl(),
             }
             entrar(datame,1);
-         } else { $("#status").html("No aceptó entrar 🙄"); }
+         } else {
+            $("#status").html("Por favor de click de nuevo en el botón  de Google");
+         }
       }
    }
    var entrar = function(datos, tok = "") {

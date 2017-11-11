@@ -54,8 +54,10 @@
       </div>
    </div>
    <div class="col-sm-3">
+      :)
       <?php
-         $e = $sql->Query("SELECT * FROM users WHERE lid = '".$_SESSION['me']."'");
+         /*
+         $e = $sql->Query("SELECT * FROM users WHERE lid = '".$_SESSION['foro']."'");
          $e = $e->fetch_object();
          if(empty($e->vinculada)) {
          ?>
@@ -69,6 +71,7 @@
          } else {
             printf('Su cuenta está vinculada con Facebook y Google.');
          }
+         */
       ?>
    </div>
 </div>
