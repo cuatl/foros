@@ -35,12 +35,12 @@
          //if(!empty($sql->error)) $msg->qe = $sql->error;
       } else {
          $user->alta = date('Y-m-d');
-         @$q = sprintf("INSERT INTO users (id,socialid,alta, correo, genero, nombre,apellido,alias,tipo,perfil) values(null,'%s', now(), '%s', '%s', '%s', '%s','%s','%s','%s')",__($user->id), __($user->correo), __($user->genero),  __($user->nombre),  __($user->apellido), __($user->nombre), __($user->social), __($user->perfil));
+         if(!isset($user->alias)) $user->alias = $user->nombre;
+         @$q = sprintf("INSERT INTO users (id,socialid,alta, correo, genero, nombre,apellido,alias,tipo,perfil) values(null,'%s', now(), '%s', '%s', '%s', '%s','%s','%s','%s')",__($user->id), __($user->correo), __($user->genero),  __($user->nombre),  __($user->apellido), __($user->alias), __($user->social), __($user->perfil));
          if($sql->Query($q)) {
             $msg->id = $ID = $sql->inser_id;
             $user->socialid = $user->id;
             $user->id = $ID;
-            if(!isset($user->alias)) $user->alias = $user->nombre;
          } else {
             $msg->error = "No se pudo almacenar el dato.";
             //$msg->qe = $sql->error; $msg->q = $q;
