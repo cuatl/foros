@@ -24,6 +24,7 @@
       $access_token = $client->getAccessToken();
       //$client->setAccessToken($access_token);
       $token = $access_token['access_token'];
+      //las siguientes dos líneas hicieron que perdiera como 2 horas de mi tiempo, no encontraba como obtener los datos... es más, había implementado el servicio people (people/me) ··_ y en los ejemplos de Google PHP SDK no hay nada!
       $os = new Google_Service_Oauth2($client);
       $me = $os->userinfo->get();
       //print_r($me);

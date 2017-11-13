@@ -28,7 +28,7 @@
                //lista de opciones
             ?>
             <p class="lead">
-            Elija con que red se quiere identificar:
+            Elija con que red se quiere identificar en <strong>tar.mx</strong>
             </p>
             <div class="text-center">
                <div class="btn-group btn-group-vertical btn-group-lg" role="group">
@@ -39,10 +39,14 @@
             </div>
             <hr />
             <p>
-            Opcionalmente y una vez que se identifique con una red,
-            puede vincular su cuenta con alguna de las otras disponibles
-            para entrar con cualquiera de ellas.
+            por hacer: vincular cuentas.
             </p>
+            <hr />
+            <footer>
+            <p class="text-center text-muted">
+            tar.mx <?php echo date('Y');?>
+            </p>
+            </footer>
             <?php
             }
          ?>

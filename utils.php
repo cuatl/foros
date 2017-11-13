@@ -50,6 +50,7 @@
       public function saveUser() {
          $this->error = null;
          $data =func_get_arg(0); //objeto
+         //$token = func_get_arg(1);
          if(!isset($data->id) || !preg_match("/^[0-9]{1,}/",$data->id)) $this->error = "no se puede registrar.";
          $this->user = $data; unset($data);
          $u =& $this->user;
@@ -81,12 +82,17 @@
             if(!isset($u->alias)) $u->alias = $u->nombre;
             @$this->q = sprintf("INSERT INTO users (id,socialid,alta, correo, genero, nombre,apellido,alias,tipo,perfil) values(null,'%s', now(), '%s', '%s', '%s', '%s','%s','%s','%s')",__($u->id), __($u->correo), __($u->genero),  __($u->nombre),  __($u->apellido), __($u->alias), __($u->social), __($u->perfil));
             if($this->sql->Query($this->q)) {
-               $ID = $this->sql->inser_id;
+               $ID = $this->sql->insert_id;
                $u->socialid = $u->id;
                $u->id = $ID;
             }
             $this->sqlerror();
             $u->nuevo = true;
+         }
+         // actualizamos token.
+         if(!empty($token)) {
+            $this->q = sprintf("UPDATE users SET token = '%s' WHERE id '%d'",__($token), $ID);
+            $this->sql->Query($this->q);
          }
          return $ID ? $u : false;
       }
