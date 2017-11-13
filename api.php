@@ -10,48 +10,6 @@
       else { header("HTTP/1.0 403 Origin Denied"); return; }
    }
    if(strcmp($_POST['meme'],$meme)) {
-   } elseif(isset($_POST['login'])) {
-      $user = (object)$_POST['login'];
-      $ID=false;
-      //
-      if($user->social == 'TW') {
-         $tmp = explode(" ",$user->nombres);
-         $user->nombre = $tmp[0];
-         $user->apellido  = implode(" ",array_slice($tmp,1));
-      }
-      //existe?
-      $q = sprintf("SELECT * FROM users WHERE socialid = '%s' AND tipo='%s' AND correo='%s'",__($user->id), __($user->social), __($user->correo));
-      $e = $sql->Query($q);
-      if($e->num_rows>0) {
-         $existe = $e->fetch_object();
-         $msg->id = $ID = $existe->id;
-         $user->alta = $existe->alta;
-         $user->alias = $existe->alias;
-         $user->socialid = $user->id;
-         $user->avatar = $existe->avatar;
-         $user->id = $ID;
-         @$q = sprintf("UPDATE users SET perfil='%s', genero='%s', nombre='%s', apellido='%s' WHERE id = %d",__($user->perfil), __($user->genero),  __($user->nombre),  __($user->apellido),  $ID);
-         $sql->Query($q);
-         //if(!empty($sql->error)) $msg->qe = $sql->error;
-      } else {
-         $user->alta = date('Y-m-d');
-         if(!isset($user->alias)) $user->alias = $user->nombre;
-         @$q = sprintf("INSERT INTO users (id,socialid,alta, correo, genero, nombre,apellido,alias,tipo,perfil) values(null,'%s', now(), '%s', '%s', '%s', '%s','%s','%s','%s')",__($user->id), __($user->correo), __($user->genero),  __($user->nombre),  __($user->apellido), __($user->alias), __($user->social), __($user->perfil));
-         if($sql->Query($q)) {
-            $msg->id = $ID = $sql->inser_id;
-            $user->socialid = $user->id;
-            $user->id = $ID;
-         } else {
-            $msg->error = "No se pudo almacenar el dato.";
-            //$msg->qe = $sql->error; $msg->q = $q;
-         }
-      }
-      //
-      if($ID) {
-         $_SESSION['foro'] = $ID;
-         $_SESSION['data'] = $user;
-         unset($msg->error);
-      }
    } elseif(isset($_POST['post'])) {
       //post leído
       unset($msg->error);
