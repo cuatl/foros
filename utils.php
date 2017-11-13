@@ -4,10 +4,14 @@
       var $sql;
       var $foto;
       var $tipo;
+      public $error;
+      public $q; //last sql query string
+      public $user; //objeto usuario actual
+      //
       function __construct() {
          $this->sql = $GLOBALS['sql'];
       }
-      function pic() {
+      public function pic() {
          $data = func_get_arg(0);
          @$size = func_get_arg(1);
          if(empty($size) || $size < 200 || $size >720) $size=200;
@@ -20,7 +24,7 @@
          else return "s.gif";
       }
       /* regresa un arreglo de fechas */
-      function fecha($f) {
+      public function fecha($f) {
          if(preg_match("/[0-9]{4}\-[0-9]{2}\-[0-9]{2}/",$f)) $fecha = strtotime($f);
          else $fecha = time();
          if($fecha <1) $fecha= time();
@@ -42,4 +46,54 @@
          $msg->full = strftime("%A %d de %B de %Y, %H:%M",$fecha);
          return $msg;
       }
+      //almacena usuario registrado.
+      public function saveUser() {
+         $this->error = null;
+         $data =func_get_arg(0); //objeto
+         if(!isset($data->id) || !preg_match("/^[0-9]{1,}/",$data->id)) $this->error = "no se puede registrar.";
+         $this->user = $data; unset($data);
+         $u =& $this->user;
+         //partimos nombre si es twitter
+         if($u->social == 'TW') {
+            $tmp = explode(" ",$u->nombres);
+            $u->nombre = $tmp[0];
+            $u->apellido  = implode(" ",array_slice($tmp,1));
+         }
+         //existe?
+         $this->q = sprintf("SELECT * FROM users WHERE socialid = '%s' AND tipo='%s' AND correo='%s'",__($u->id), __($u->social), __($u->correo));
+         $e = $this->sql->Query($this->q);
+         $this->sqlerror();
+         if($e->num_rows>0) {
+            $existe = $e->fetch_object();
+            $ID = $existe->id;
+            $u->alta = $existe->alta;
+            $u->alias = $existe->alias;
+            $u->socialid = $u->id;
+            $u->avatar = $existe->avatar;
+            $u->id = $ID;
+            @$this->q = sprintf("UPDATE users SET perfil='%s', genero='%s', nombre='%s', apellido='%s' WHERE id = %d",__($u->perfil), __($u->genero),  __($u->nombre),  __($u->apellido),  $ID);
+            $this->sql->Query($this->q);
+            $this->sqlerror();
+            $u->nuevo = false;
+         } else {
+            //nuevo
+            $u->alta = date('Y-m-d');
+            if(!isset($u->alias)) $u->alias = $u->nombre;
+            @$this->q = sprintf("INSERT INTO users (id,socialid,alta, correo, genero, nombre,apellido,alias,tipo,perfil) values(null,'%s', now(), '%s', '%s', '%s', '%s','%s','%s','%s')",__($u->id), __($u->correo), __($u->genero),  __($u->nombre),  __($u->apellido), __($u->alias), __($u->social), __($u->perfil));
+            if($this->sql->Query($this->q)) {
+               $ID = $this->sql->inser_id;
+               $u->socialid = $u->id;
+               $u->id = $ID;
+            }
+            $this->sqlerror();
+            $u->nuevo = true;
+         }
+         return $ID ? $u : false;
+      }
+      /* sql error {{{ */
+      private function sqlerror() {
+         if(!empty($this->sql->error)) {
+            die(sprintf('<p class="lead text-danger"><strong>SQL ERROR:</strong> %s</p>',$sql->error));
+         } else return true;
+      } /* }}} */
    }

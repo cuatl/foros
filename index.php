@@ -1,6 +1,7 @@
 <?php
    session_start();
    include_once(__DIR__."/config.php");
+   include_once(__DIR__."/login/config.php");
    if(isset($_GET['salir'])) {
       session_destroy();
       header("Location: ".$sitio);
