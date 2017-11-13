@@ -12,3 +12,6 @@
    //twitter https://apps.twitter.com/
    $configtw = ["CONSUMER_KEY","CONSUMER_SECRET"];
    //Google
+   $configgo = ["CLIENT_ID","CLIENT_SECRET"];
+   //este archivo se descarga de la aplicación en la consola de developers de Google, son las credenciales.
+   $configgojson = __DIR__."/archivo.json";

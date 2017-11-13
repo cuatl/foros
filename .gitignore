@@ -4,3 +4,4 @@ prism
 tw.config.php
 login/config.php
 login/vendor
+login/*.json

@@ -9,6 +9,7 @@
       $url = $helper->getLoginUrl($sitio."login/?fb=2", $permissions);
       if(preg_match("/^https:\/\/www\.facebook\.com/",$url)) {
       ?>
+      Direccionando a Facebook...
       <script>
          window.location = '<?php echo $url;?>';
       </script>
@@ -22,6 +23,7 @@
       require_once __DIR__ . '/vendor/autoload.php'; 
       if(!isset($configfb)) die("no tiene disponible configfb en config.php :(");
       $fb = new \Facebook\Facebook($configfb);
+      printf(" - Obteniendo datos...");
       $helper = $fb->getRedirectLoginHelper();
       try {
          $accessToken = $helper->getAccessToken();

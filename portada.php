@@ -62,14 +62,16 @@
                      if($no->no>0) echo $no->no." respuesta".($no->no>1?'s':'');
                      else echo "🙄";
                      //leido?
-                     $read=sprintf("SELECT * FROM postslog WHERE postid='%d' and me='%d'",$k->id,$_SESSION['foro']);
-                     $read=$sql->Query($read);
-                     if($read->num_rows<1) {
-                        echo ' <span class="badge badge-warning">sin leer</span>';
-                     } else {
-                        $read = $read->fetch_object();
-                        if(strtotime($read->fecha) > strtotime($last)) echo ' <span class="badge badge-light">leído</span>';
-                        else echo ' <span class="badge badge-info">nuevo</span>';
+                     if(isset($_SESSION['foro'])) {
+                        $read=sprintf("SELECT * FROM postslog WHERE postid='%d' and me='%d'",$k->id,$_SESSION['foro']);
+                        $read=$sql->Query($read);
+                        if($read->num_rows<1) {
+                           echo ' <span class="badge badge-warning">sin leer</span>';
+                        } else {
+                           $read = $read->fetch_object();
+                           if(strtotime($read->fecha) > strtotime($last)) echo ' <span class="badge badge-light">leído</span>';
+                           else echo ' <span class="badge badge-info">nuevo</span>';
+                        }
                      }
                   ?>
                </div>

@@ -22,6 +22,8 @@
                include_once(__DIR__."/fb.php");
             } elseif(isset($_GET['tw'])) {
                include_once(__DIR__."/tw.php");
+            } elseif(isset($_GET['go'])) {
+               include_once(__DIR__."/go.php");
             } else {
                //lista de opciones
             ?>
@@ -32,6 +34,7 @@
                <div class="btn-group btn-group-vertical btn-group-lg" role="group">
                   <a href="?fb=1" class="btn btn-primary">Entrar con Facebook</a>
                   <a href="?tw=1" class="btn btn-secondary">Entrar con Twitter</a>
+                  <a href="?go=1" class="btn btn-danger">Entrar con Google</a>
                </div>
             </div>
             <hr />
