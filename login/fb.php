@@ -80,7 +80,7 @@
       <script>
          window.onunload = refresh;
          var refresh = function() { window.opener.location.reload(); window.self.close(); }
-         refresh;
+         refresh();
       </script>
       <?php
       }
