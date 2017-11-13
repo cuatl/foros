@@ -92,10 +92,9 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
       <script>
+         //ventana de login
          var windowLogin = function() {
-               console.log('win open');
-               var ancho = 400;
-               var alto  = 500;
+               var ancho = 600; var alto  = 500;
                var left = (window.screen.width / 2) - (ancho/2);
                window.open('login/','login','width='+ancho+',screenX='+left+',height=500,screenY=100,toolbar=no,menubar=no,scrollbars=no,location=no,directories=no,history=no');
                return false;

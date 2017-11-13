@@ -10,8 +10,5 @@
    'default_graph_version' => 'v2.11',
    ];
    //twitter https://apps.twitter.com/
-   $configtw = [
-   'consumer_key'   => "CONSUMER_KEY",
-   'consumer_secret'=> "CONSUMER_SECRET",
-   ];
+   $configtw = ["CONSUMER_KEY","CONSUMER_SECRET"];
    //Google

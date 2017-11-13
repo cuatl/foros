@@ -21,7 +21,6 @@
             if(isset($_GET['fb'])) {
                include_once(__DIR__."/fb.php");
             } elseif(isset($_GET['tw'])) {
-               echo "twitter";
                include_once(__DIR__."/tw.php");
             } else {
                //lista de opciones

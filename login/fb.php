@@ -83,5 +83,5 @@
          refresh();
       </script>
       <?php
-      }
+      } else die("no se pudo almacenar :(");
    }
