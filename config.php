@@ -14,5 +14,6 @@
    $meme=md5('ola ke ase o ke ase'.date('YmdH'));
    $sitio= "https://tar.mx/foros/"; // URL sitio publicado
    $sitios = ["https://tar.mx","http://tar.mx"]; //dominios donde esté el foro
+   define('ME','foro'); //variable de sesión
    //SOCIAL para identificarnos con Facebook o Google
    //ver login/config-example.php, renombrarlo a login/config.php

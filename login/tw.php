@@ -50,7 +50,7 @@
             $da = $utils->saveUser($save,$token);
             if(isset($da->id)) {
                //almacenado.
-               $_SESSION['foro'] = $da->id;
+               $_SESSION[ME] = $da->id;
                $_SESSION['data'] = $da;
                //cerramos esta ventana :-)
             ?>

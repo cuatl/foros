@@ -13,13 +13,13 @@
    } elseif(isset($_POST['post'])) {
       //post leído
       unset($msg->error);
-      $e=$sql->Query("SELECT * FROM postslog WHERE postid='".__($_POST['post'])."' AND me='".$_SESSION['foro']."'");
+      $e=$sql->Query("SELECT * FROM postslog WHERE postid='".__($_POST['post'])."' AND me='".$_SESSION[ME]."'");
       $msg->new=0;
       if($e->num_rows<1) {
          $msg->new=1;
-         $q=sprintf("INSERT INTO postslog (postid,me,fecha) VALUES('%d','%d',now())",__($_POST['post']),$_SESSION['foro']);
+         $q=sprintf("INSERT INTO postslog (postid,me,fecha) VALUES('%d','%d',now())",__($_POST['post']),$_SESSION[ME]);
       } else {
-         $q=sprintf("UPDATE postslog SET fecha = now() WHERE postid='%d' and me='%d'",__($_POST['post']),$_SESSION['foro']);
+         $q=sprintf("UPDATE postslog SET fecha = now() WHERE postid='%d' and me='%d'",__($_POST['post']),$_SESSION[ME]);
       }
       unset($msg->error);
       $sql->Query($q);

@@ -1,7 +1,7 @@
 <?php
    /* muestra el post */
    if(isset($_GET['rm'])) {
-      $q = sprintf("DELETE FROM posts WHERE id = '%d' AND me = '%s'",__($_GET['rm']),$_SESSION['foro']);
+      $q = sprintf("DELETE FROM posts WHERE id = '%d' AND me = '%s'",__($_GET['rm']),$_SESSION[ME]);
       $sql->Query($q);
       printf('<p class="lead">Se <strong>eliminó</strong> un escrito 😞</p>');
    }
@@ -28,7 +28,7 @@
       <?php
          echo stripslashes($post->contenido);
          printf('<br><p class="text-muted small font-italic">publicado: %s</p>',$d->full);
-         if(isset($_SESSION['foro']) &&$_SESSION['foro'] == $post->me) {
+         if(isset($_SESSION[ME]) &&$_SESSION[ME] == $post->me) {
          ?>
          <div class="bg-light">
             <a href="<?php echo $sitio;?>?nuevo=1&edit=<?php echo $post->id;?>">editar</a>
@@ -59,7 +59,7 @@
             if(!empty($k->titulo)) printf('<p class="lead">%s</p>',$k->titulo);
             echo stripslashes($k->contenido);
             printf('<p class="text-muted small font-italic">publicado: %s</p>',$d->full);
-            if(isset($_SESSION['foro']) &&$_SESSION['foro'] == $k->me) {
+            if(isset($_SESSION[ME]) &&$_SESSION[ME] == $k->me) {
             ?>
             <br />
             <div class="bg-light">
@@ -120,7 +120,7 @@
    <div class="col-sm-8">
       Escribe una respuesta
       <?php
-         if(isset($_SESSION['foro'])) {
+         if(isset($_SESSION[ME])) {
          ?>
          <form method="post" action="<?php echo $sitio;?>?nuevo=1" enctype="multipart/form-data">
             <input type="hidden" name="padre" value="<?php echo $post->id;?>" />
@@ -166,7 +166,7 @@
    $(function() {
          $("TITLE").html('<?php echo stripslashes($post->titulo);?>');
          <?php
-            if(isset($_SESSION['foro'])) {
+            if(isset($_SESSION[ME])) {
             ?>
             $.post("api.php",{ post:<?php echo $post->id;?>,meme:'<?php echo $meme;?>' },function(m) {
             },'json');

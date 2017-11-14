@@ -1,6 +1,6 @@
 <?php
    /* edición básica perfil usuario */
-   if(!isset($_SESSION['foro'])) {
+   if(!isset($_SESSION[ME])) {
       $_SESSION['redir'] = $sitio."?perfil=me";
    ?>
    <script>
@@ -8,10 +8,10 @@
    </script>
    <?php
    }
-   $u=$sql->query("SELECT * FROM users WHERE id='".__($_SESSION['foro'])."'");
+   $u=$sql->query("SELECT * FROM users WHERE id='".__($_SESSION[ME])."'");
    $me = $u->fetch_object();
    if(isset($_POST['alias'])&&!empty($_POST['alias'])) {
-      $q=sprintf("UPDATE users SET alias = '%s' WHERE id = '%s'",__($_POST['alias']), $_SESSION['foro']);
+      $q=sprintf("UPDATE users SET alias = '%s' WHERE id = '%s'",__($_POST['alias']), $_SESSION[ME]);
       $sql->Query($q);
       $me->alias = __($_POST['alias']);
       $_SESSION['data']->alias= __($_POST['alias']);
@@ -23,7 +23,7 @@
          $cmd = `$cmd`;
          $me->avatar = $image;
          $_SESSION['data']->avatar = $image;
-         $q = sprintf("UPDATE users SET avatar='%s' WHERE id = '%s'",__($image), $_SESSION['foro']);
+         $q = sprintf("UPDATE users SET avatar='%s' WHERE id = '%s'",__($image), $_SESSION[ME]);
          $sql->Query($q);
       }
       echo "<em>Se actualizaron los datos</em>";
@@ -55,24 +55,6 @@
    </div>
    <div class="col-sm-3">
       :)
-      <?php
-         /*
-         $e = $sql->Query("SELECT * FROM users WHERE lid = '".$_SESSION['foro']."'");
-         $e = $e->fetch_object();
-         if(empty($e->vinculada)) {
-         ?>
-         Vincular cuenta
-         <?php
-            if($_SESSION['tipo'] == 'FB') {
-               printf('<a href="logingp.php?from=FB">con Google</a>');
-            } else {
-               printf('<a href="login.php?from=FB">con Facebook</a>');
-            }
-         } else {
-            printf('Su cuenta está vinculada con Facebook y Google.');
-         }
-         */
-      ?>
    </div>
 </div>
 

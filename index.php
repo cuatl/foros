@@ -42,7 +42,7 @@
                </ul>
                <?php
                   //imagen usuario
-                  if(!isset($_SESSION['foro'])) {
+                  if(!isset($_SESSION[ME])) {
                      printf('<span class="navbar-text float-right"><a href="login/" onclick="return windowLogin();">entrar</a></span>',$sitio);
                   } else {
                      @printf('<span class="navbar-text float-right"><a href="%s?perfil=me"><img src="%s" height="30" alt="me" /></a></span>',$sitio,$utils->pic([$_SESSION['data']->social, $_SESSION['data']->perfil, $_SESSION['data']->avatar,$_SESSION['data']->alta,$_SESSION['data']->socialid],14));
@@ -76,7 +76,7 @@
          <?php 
             echo date('Y');
             include_once("ping.php"); 
-            if(isset($_SESSION['foro'])) {
+            if(isset($_SESSION[ME])) {
                printf(' / <a href="%s?salir=1">salir</a>',$sitio);
             } else {
                printf(' / <a href="%s?entrar=1">entrar</a>',$sitio);

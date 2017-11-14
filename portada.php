@@ -62,8 +62,8 @@
                      if($no->no>0) echo $no->no." respuesta".($no->no>1?'s':'');
                      else echo "🙄";
                      //leido?
-                     if(isset($_SESSION['foro'])) {
-                        $read=sprintf("SELECT * FROM postslog WHERE postid='%d' and me='%d'",$k->id,$_SESSION['foro']);
+                     if(isset($_SESSION[ME])) {
+                        $read=sprintf("SELECT * FROM postslog WHERE postid='%d' and me='%d'",$k->id,$_SESSION[ME]);
                         $read=$sql->Query($read);
                         if($read->num_rows<1) {
                            echo ' <span class="badge badge-warning">sin leer</span>';

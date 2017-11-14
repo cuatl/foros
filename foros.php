@@ -38,7 +38,7 @@
                            $last=$sql->Query("SELECT fecha FROM posts WHERE padre='".$k->id."' order by id desc limit 1");
                            if($last->num_rows>0) { $last = $last->fetch_object(); $last = $last->fecha; } 
                            else { $last = $k->fecha; }
-                           $read=sprintf("SELECT * FROM postslog WHERE postid='%d' and me='%d'",$k->id,$_SESSION['foro']);
+                           $read=sprintf("SELECT * FROM postslog WHERE postid='%d' and me='%d'",$k->id,$_SESSION[ME]);
                            $read=$sql->Query($read);
                            if($read->num_rows<1) { echo ' <span class="badge badge-warning">sin leer</span>'; } 
                            else {
@@ -57,7 +57,7 @@
             </tbody>
          </table>
          <?php
-            if(!isset($_SESSION['foro'])) {
+            if(!isset($_SESSION[ME])) {
                printf('¿Quieres escribir algo? por favor <a href="%slogin/" onclick="return windowLogin();">identificate</a>',$sitio);
             } else {
                if($no==0) printf('Aún <strong>no hay</strong> escritos en este foro - <a href="%s?nuevo=%d" class="btn btn-outline-secondary btn-sm">escribir nuevo</a>',$sitio,$foro->id);

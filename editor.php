@@ -1,5 +1,5 @@
 <?php
-   if(!isset($_SESSION['foro'])) {
+   if(!isset($_SESSION[ME])) {
       $_SESSION['redir'] = "foros/?nuevo=".__($_GET['nuevo']);
       die("Debe estar <a href=\"".$sitio."?entrar=1\">identificado</a>.");
    }
@@ -107,13 +107,13 @@
       $padre=(isset($_POST['padre']))?__($_POST['padre']):0;
       //
       if(!isset($_POST['edit'])) {
-         $q = sprintf("INSERT INTO posts (id,padre, me, foro, fecha, titulo, contenido) values(null,'%d','%s','%s',now(),'%s','%s')",$padre,$_SESSION['foro'], __($_POST['cat']), __($_POST['titulo']), addslashes($body));
+         $q = sprintf("INSERT INTO posts (id,padre, me, foro, fecha, titulo, contenido) values(null,'%d','%s','%s',now(),'%s','%s')",$padre,$_SESSION[ME], __($_POST['cat']), __($_POST['titulo']), addslashes($body));
          $sql->Query($q);
          if(!empty($sql->error)) echo "SQL ERROR: ".$sql->error;
          $ID = $sql->insert_id;
       } else {
          $ID = __($_POST['edit']);
-         $q= sprintf("UPDATE posts SET padre='%d', foro='%d', titulo='%s', contenido='%s' WHERE id ='%d' and me = '%s'", $padre, __($_POST['cat']), __($_POST['titulo']), addslashes($body), $ID, $_SESSION['foro']);
+         $q= sprintf("UPDATE posts SET padre='%d', foro='%d', titulo='%s', contenido='%s' WHERE id ='%d' and me = '%s'", $padre, __($_POST['cat']), __($_POST['titulo']), addslashes($body), $ID, $_SESSION[ME]);
          $sql->Query($q);
          if(!empty($sql->error)) echo "SQL ERROR: ".$sql->error;
       }
@@ -137,7 +137,7 @@
       exit();
    }
    if(isset($_GET['edit'])) {
-      $edit = sprintf("SELECT * FROM posts WHERE id = '%d' AND me = '%s'",__($_GET['edit']),__($_SESSION['foro']));
+      $edit = sprintf("SELECT * FROM posts WHERE id = '%d' AND me = '%s'",__($_GET['edit']),__($_SESSION[ME]));
       $edit = $sql->Query($edit);
       if($edit->num_rows>0) $edit = $edit->fetch_object();
       else unset($edit);

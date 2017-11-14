@@ -2,9 +2,9 @@
    /* mantiene sesión "viva" */
    if(isset($_POST['ping'])) {
       session_start();
-      if(isset($_SESSION['foro'])) {
-         require_once("config.php");
-         $sql->Query("UPDATE seen=now() WHERE lid = '".$_SESSION['foro']."'");
+      require_once("config.php");
+      if(isset($_SESSION[ME])) {
+         $sql->Query("UPDATE seen=now() WHERE lid = '".$_SESSION[ME]."'");
       }
       if(!isset($_SESSION['pong'])) $_SESSION['pong']=1;
       $_SESSION['pong']++;
