@@ -5,10 +5,11 @@
       $sql->Query($q);
       printf('<p class="lead">Se <strong>eliminó</strong> un escrito 😞</p>');
    }
-   $q = "SELECT P.*,U.nombre,U.alta,U.avatar,U.perfil,U.tipo,U.alias,U.socialid,U.id as lid,U.perfil,U.tipo FROM posts P,users U WHERE  P.me=U.id and P.id = '    ".__($_GET['view'])."'";
+   $q = "SELECT P.*,U.nombre,U.alta,U.avatar,U.perfil,U.tipo,U.alias,U.socialid,U.id as lid,U.perfil,U.tipo FROM posts P,users U WHERE  P.me=U.id and P.id = '".__($_GET['view'])."'";
    $post = $sql->Query($q);
    if($post->num_rows<1) {
-      die(sprintf('<p class="lead">Ese escrito <strong>se ha desvanecido</strong> o nunca existió 😱</p>'));
+      printf('<p class="lead">Ese escrito <strong>se ha desvanecido</strong> o nunca existió 😱</p>');
+      die($q);
    }
    $post = $post->fetch_object();
    $foro=$sql->Query("SELECT F.*,MA.nombre FROM foros F, forotes MA WHERE F.master=MA.id AND F.id = '".$post->foro."'");

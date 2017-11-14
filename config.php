@@ -6,6 +6,7 @@
    $sqls->user = "foros";
    $sqls->pass = "LWE7XE?!p7SRrJgg";
    $sqls->data = "foros";
+   define("USERS","users"); //donde se almacenan los usuarios
    //DB: grant all on foros.* TO "foros"@"localhost" identified by "LWE7XE?!p7SRrJgg";
    $sql = new MySQLi($sqls->host,$sqls->user,$sqls->pass,$sqls->data);
    $sql->Query("SET names 'utf8mb4'");
