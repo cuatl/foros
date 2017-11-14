@@ -58,7 +58,7 @@
          </table>
          <?php
             if(!isset($_SESSION['foro'])) {
-               printf('¿Quieres escribir algo? por favor <a href="%s?entrar=1">identificate</a>',$sitio);
+               printf('¿Quieres escribir algo? por favor <a href="%slogin/" onclick="return windowLogin();">identificate</a>',$sitio);
             } else {
                if($no==0) printf('Aún <strong>no hay</strong> escritos en este foro - <a href="%s?nuevo=%d" class="btn btn-outline-secondary btn-sm">escribir nuevo</a>',$sitio,$foro->id);
                else printf('<p class="lead">Hay %s escritos 😬 en <strong>%s</strong> -  <a href="%s?nuevo=%d" class="btn btn-outline-secondary btn-sm">escribir nuevo</a></p>',$no,$foro->titulo,$sitio,$foro->id);

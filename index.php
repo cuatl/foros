@@ -54,9 +54,7 @@
 
 
          <?php
-            if(isset($_GET['entrar'])) {
-               include_once("entrar.php");
-            } elseif(isset($_GET['nuevo'])) {
+            if(isset($_GET['nuevo'])) {
                include_once("editor.php");
             } elseif(isset($_GET['view'])) {
                include_once("view.php");
