@@ -29,7 +29,7 @@
       if(isset($res['oauth_token']) && isset($res['oauth_token_secret'])) {
          printf(" - verificando token... ");
          //ya estamos identificados
-         $token =$res['oauth_token'].":".$res['oauth_token_secret'];
+         $token =$res['oauth_token'].":::".$res['oauth_token_secret'];
          //paso 3: obtenemos datos ahora.
          $SimpleTW->oauthToken       = $res['oauth_token'];
          $SimpleTW->oauthTokenSecret = $res['oauth_token_secret'];

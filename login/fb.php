@@ -6,6 +6,9 @@
       $fb = new \Facebook\Facebook($configfb);
       $helper = $fb->getRedirectLoginHelper();
       $permissions = ['email']; // Optional permissions
+      if($offline) {
+         //permisos para publicar
+      }
       $url = $helper->getLoginUrl($sitio."login/?fb=2", $permissions);
       if(preg_match("/^https:\/\/www\.facebook\.com/",$url)) {
       ?>

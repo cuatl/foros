@@ -15,3 +15,7 @@
    $configgo = ["CLIENT_ID","CLIENT_SECRET"];
    //este archivo se descarga de la aplicación en la consola de developers de Google, son las credenciales.
    $configgojson = __DIR__."/archivo.json";
+   //
+   //
+   // ACCESOS OFFLINE (por ejemplo para postear en nombre del usuario identificado)
+   $offline = false;

@@ -4,7 +4,7 @@
       session_start();
       require_once("config.php");
       if(isset($_SESSION[ME])) {
-         $sql->Query("UPDATE seen=now() WHERE lid = '".$_SESSION[ME]."'");
+         $sql->Query("UPDATE seen=now() WHERE id = '".$_SESSION[ME]."'");
       }
       if(!isset($_SESSION['pong'])) $_SESSION['pong']=1;
       $_SESSION['pong']++;
