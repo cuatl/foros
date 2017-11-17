@@ -3,8 +3,6 @@
    $SimpleTW = new SimpleTW($configtw);
    if(isset($_GET['tw']) && !strcmp($_GET['tw'],1)) {
       //paso 1: generamos url para twitter. Usamos la clase https://github.com/cuatl/SimpleTW
-      //require_once(__DIR__."/SimpleTW.php");
-      //$SimpleTW = new SimpleTW($configtw);
       $url = "https://api.twitter.com/oauth/request_token";
       $SimpleTW->callback =  $sitio."login/?tw=2";
       $data = $SimpleTW->api("POST", $url, []);

@@ -13,6 +13,7 @@
    }
    include_once("utils.php");
    $utils = new Utils();
+   //include_once("galleta.php");
 ?>
 <!DOCTYPE html>
 <html lang="es">

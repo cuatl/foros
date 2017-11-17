@@ -17,3 +17,8 @@
    define('ME','foro'); //variable de sesión
    //SOCIAL para identificarnos con Facebook o Google
    //ver login/config-example.php, renombrarlo a login/config.php
+   //
+   //
+   define('GALLETA','tarforos'); //variable de la cookie
+   $host       = parse_url($sitio, PHP_URL_HOST);
+   $directorio = parse_url($sitio, PHP_URL_PATH);
