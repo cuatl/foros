@@ -1,4 +1,11 @@
 <?php
+   /*
+   * procedimiento de login con Facebook. Es necesario tener la varialbe $configfb
+   * como se muestra en el archivo config-example.php.
+   * en el primer paso se obtiene el url para identificarse.
+   * en el paso dos se obtiene el token corto (1h) e inmediatamente el de larga duración (60d)
+   * una vez identificado se almacena en sesión y DB.
+   */
    if(isset($_GET['fb']) && !strcmp($_GET['fb'],1)) {
       //paso 1: generamos URL para acceder.
       require_once __DIR__ . '/vendor/autoload.php'; 
@@ -54,7 +61,6 @@
       }
       $token = $accessToken->getValue();
       //print_r($accessToken->getValue());
-      //ahora si, obtenemos sus datos.
       try {
          // Returns a `Facebook\FacebookResponse` object
          $response = $fb->get('/me?fields=id,email,name,first_name,last_name,age_range,link,gender,verified', $token);
@@ -66,6 +72,7 @@
          exit;
       }
       $user = $response->getGraphUser();
+      //almacenamiento en un objeto de los datos regresados
       $save= new stdclass;
       $save->id         = $user->getId();
       $save->correo     = $user->getEmail();
@@ -75,15 +82,15 @@
       $save->apellido   = $user->getLastName();
       $save->genero     = $user->getGender();
       $save->web        = $user->getLink();
-      // token de larga duración de facebook
+      // obtenemos el token de larga duración de facebook (1h x 60d)
       $ld = $fb->get(sprintf('/oauth/access_token?grant_type=fb_exchange_token&client_id=%s&client_secret=%s&fb_exchange_token=%s',$configfb['app_id'], $configfb['app_secret'], $token),$token);
       $atoken= $ld->getDecodedBody();
       $atoken = $atoken['access_token'];
       if(!empty($atoken)) $token = $atoken; //reemplazamos el temporal de 1h por el de 60d
-      //
+      // almacenamos en DB, ver el archivo ../utils.php
       $da = $utils->saveUser($save,$token);
       if(isset($da->id)) {
-         //almacenado.
+         //almacenado en sesión
          $_SESSION[ME] = $da->id;
          $_SESSION['data'] = $da;
          //cerramos esta ventana :-)

@@ -1,10 +1,17 @@
 <?php
+   /*
+   * procedimiento de login con Twitter, es necesario que la app tenga permisos para requerir correo.
+   * (si así se desea)
+   * en el primer paso obtiene el URL para obtener el token
+   * en el segundo paso se almacena la información. Requerida la información en $configtw del archivo
+   * config-example.php
+   */
    require_once(__DIR__."/SimpleTW.php");
    $SimpleTW = new SimpleTW($configtw);
    if(isset($_GET['tw']) && !strcmp($_GET['tw'],1)) {
       //paso 1: generamos url para twitter. Usamos la clase https://github.com/cuatl/SimpleTW
       $url = "https://api.twitter.com/oauth/request_token";
-      $SimpleTW->callback =  $sitio."login/?tw=2";
+      $SimpleTW->callback =  $sitio."login/?tw=2"; //este mismo archivo, paso 2
       $data = $SimpleTW->api("POST", $url, []);
       parse_str($data,$res);
       if(isset($res["oauth_token"]) && isset($res["oauth_callback_confirmed"])) {
@@ -45,9 +52,10 @@
             $save->nombres  = $data->name;
             $save->alias    = $data->screen_name;
             $save->perfil   = $data->profile_image_url_https;
+            // almacenado en db, ver ../utils.php
             $da = $utils->saveUser($save,$token);
             if(isset($da->id)) {
-               //almacenado.
+               //almacenado en sesión.
                $_SESSION[ME] = $da->id;
                $_SESSION['data'] = $da;
                //cerramos esta ventana :-)

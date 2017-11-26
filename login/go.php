@@ -1,4 +1,8 @@
 <?php
+   /*
+   * procedimiento para identificación con Google (no Google+)
+   * es necesario ver las variables del archivo config-example.php
+   */
    require_once("../config.php");
    require_once("config.php");
    require_once __DIR__ . '/vendor/autoload.php'; 
@@ -7,7 +11,7 @@
    if(!isset($_GET['code'])) {
       //paso 1: generamos url para Google 
       // https://github.com/google/google-api-php-client/blob/master/examples/idtoken.php
-      $client->setScopes('profile email');
+      $client->setScopes('profile email'); //su correo :o
       $urltoken = $client->createAuthUrl();
       if(!empty($urltoken) && preg_match("/^https:\/\/accounts\.google\.com/",$urltoken)) {
          printf("Estamos redireccionado a Google... ");
@@ -18,6 +22,7 @@
       <?php
       } else die("no se pudo generar el URL para twitter");
    } elseif(isset($_GET['code'])) {
+      //paso 2: obtenemos la información
       echo " - obteniendo datos... ";
       //
       $client->authenticate($_GET['code']);
@@ -28,6 +33,7 @@
       $os = new Google_Service_Oauth2($client);
       $me = $os->userinfo->get();
       //print_r($me);
+      //objeto con la información obtenida
       $save =new stdclass;
       $save->id         = $me->getId();
       $save->correo     = $me->getEmail();
@@ -37,9 +43,10 @@
       $save->apellido   = $me->getFamilyName();
       $save->genero     = $me->getGender();
       $save->perfil     = $me->getPicture();
+      //almacenamos en la db, ver ../utils.php
       $da = $utils->saveUser($save,$token);
       if(isset($da->id)) {
-         //almacenado.
+         //almacenado en sesión
          $_SESSION[ME] = $da->id;
          $_SESSION['data'] = $da;
          //cerramos esta ventana :-)
