@@ -1,7 +1,7 @@
 <?php
    session_start();
    require_once(__DIR__."/../config.php");
-   require_once(__DIR__."/config.php");
+   require_once(__DIR__."/config.php"); //ver config-example.php
    include_once(__DIR__."/../utils.php");
    $utils = new Utils();
 ?>
@@ -19,11 +19,11 @@
       <div class="container">
          <?php
             if(isset($_GET['fb'])) {
-               include_once(__DIR__."/fb.php");
+               include_once(__DIR__."/fb.php"); //facebook
             } elseif(isset($_GET['tw'])) {
-               include_once(__DIR__."/tw.php");
+               include_once(__DIR__."/tw.php"); //twitter
             } elseif(isset($_GET['go'])) {
-               include_once(__DIR__."/go.php");
+               include_once(__DIR__."/go.php"); //google
             } else {
                //lista de opciones
             ?>
