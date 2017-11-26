@@ -23,6 +23,7 @@
             $me->socialid= $soy->socialid;
             $me->nuevo  = false;
             $me->mordida=true;
+            $me->frecuencia = $soy->frecuencia;
             $_SESSION[ME] = $soy->id;
             header("Location: ".$sitio);
             exit();
@@ -39,6 +40,6 @@
       $tmp = $sql->Query($q);
       $tmp = $tmp->fetch_object();
       $tmp = md5(sprintf("%d:::%s",$me->id,$tmp->token));
-      setcookie(GALLETA,base64_encode($me->id.":::".$tmp), (time() + (60 * 60 * 24 * 7)), $directorio, $host,true, true); //7d
+      setcookie(GALLETA,base64_encode($me->id.":::".$tmp), (time() + (60 * 60 * 24 * 45)), $directorio, $host,true, true); //7d
       unset($me->galleta);
    }

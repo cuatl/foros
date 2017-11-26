@@ -75,6 +75,12 @@
       $save->apellido   = $user->getLastName();
       $save->genero     = $user->getGender();
       $save->web        = $user->getLink();
+      // token de larga duración de facebook
+      $ld = $fb->get(sprintf('/oauth/access_token?grant_type=fb_exchange_token&client_id=%s&client_secret=%s&fb_exchange_token=%s',$configfb['app_id'], $configfb['app_secret'], $token),$token);
+      $atoken= $ld->getDecodedBody();
+      $atoken = $atoken['access_token'];
+      if(!empty($atoken)) $token = $atoken; //reemplazamos el temporal de 1h por el de 60d
+      //
       $da = $utils->saveUser($save,$token);
       if(isset($da->id)) {
          //almacenado.

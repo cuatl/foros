@@ -17,7 +17,22 @@
       $msg->pong = number_format($_SESSION['pong']/60,2);
       //
       echo json_encode($msg);
-   } else {
+   } elseif(isset($_POST['actualiza'])) {
+      session_start();
+      require_once("config.php");
+      $msg = new stdclass;
+      //allow
+      $allow = ['frecuencia'];
+      if(in_array($_POST['actualiza'],$allow)) {
+         $msg->ok = true;
+         $q = sprintf("UPDATE users SET %s='%s' WHERE id = '%d'",__($_POST['actualiza']),__($_POST['data']),$_SESSION[ME]);
+         $sql->Query($q);
+         if($_POST['actualiza']=='frecuencia') $_SESSION['data']->frecuencia = __($_POST['data']);
+      } else {
+         $msg->error = "error";
+      }
+      echo json_encode($msg);
+   }  else {
    ?>
    <script>
       var pong=0; $(document).ready(function(){ var pong = setTimeout("pingPong()",500); });

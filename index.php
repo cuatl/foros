@@ -63,6 +63,8 @@
                include_once("foros.php");
             } elseif(isset($_GET['perfil'])) {
                include_once("perfil.php");
+            } elseif(isset($_GET['privacidad'])) {
+               include_once("privacidad.php");
             } else {
                include_once("portada.php");
             }
@@ -73,9 +75,11 @@
          <hr />
          <footer class="footer">
          <p class="text-center">
-         &copy; tar.mx 
          <?php 
             echo date('Y');
+         ?>
+         <a href="<?php echo $sitio;?>?privacidad=me">privacidad</a> / 
+         <?php
             include_once("ping.php"); 
             if(isset($_SESSION[ME])) {
                printf(' / <a href="%s?salir=1">salir</a>',$sitio);
