@@ -84,7 +84,7 @@
             if(isset($_SESSION[ME])) {
                printf(' / <a href="%s?salir=1">salir</a>',$sitio);
             } else {
-               printf(' / <a href="%s?entrar=1">entrar</a>',$sitio);
+               printf(' / <a href="login/" onclick="return windowLogin();">entrar</a>',$sitio);
             }
          ?>
          / <a href="https://github.com/cuatl/foros">código fuente</a>

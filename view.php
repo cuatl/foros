@@ -145,7 +145,7 @@
          } else {
             $_SESSION['redir'] = $sitio."?view=".$post->id;
          ?>
-         Para escribir, es necesario estar identificado. <a href="<?php echo $sitio;?>?entrar=1" class="btn btn-secondary">Puedes entrar</a>
+         Para escribir, es necesario estar identificado. <a href="login/" onclick="return windowLogin();" class="btn btn-secondary">Puedes entrar</a>
          con tu cuenta de Facebook o Google+ :-)
          <?php
          }
